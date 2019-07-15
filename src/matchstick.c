@@ -5,7 +5,7 @@
  *	loses the game.
  */
 
-#include"/home/vvdn/vyshnav/training/trainee/inc/header.h"
+#include"../inc/header.h"
 int main()
 {
 	int matchstick=21;
