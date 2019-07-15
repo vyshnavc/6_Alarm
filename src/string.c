@@ -141,6 +141,11 @@ void lower(char *p)
 }
 void newstring(char *s)
 {
+	if(s==NULL)
+	{
+		printf("\nsystem error occured");
+		return;
+	}
 	bzero(s,100);
 	printf("\nenter new string :\n");
 	scanf(" %[^\n]s",s);
