@@ -13,7 +13,7 @@
  *Loop should continue until the user enters the command to exit. 
  *Upper and lowercase letters should be allowed for the menu choices.
  */
-#include"/home/vvdn/vyshnav/training/trainee/inc/header.h"
+#include"../inc/header.h"
 #define max_len 100
 int i,j;
 void capitalize(char *);
