@@ -30,10 +30,10 @@ void menu(void);
 
 void main()
 {
-//	printf(__TIME__);
+	//	printf(__TIME__);
 	char s[100],c;
 	do{ 
-                system("clear");
+		system("clear");
 		printf("enter a string: ");
 		scanf(" %[^\n]s",s);
 		printf("==========================================================================\n");
@@ -57,7 +57,8 @@ void main()
 					  printf("\n======================================================================");
 					  menu();
 					  printf("\nenter a option : ");
-					  scanf("%c",&c);
+					  scanf(" %c",&c);
+                                    //    printf("\n%c",c);
 					  continue;
 				case 'I': break;
 				case 'X': return;
@@ -74,6 +75,11 @@ void menu(void)
 }
 void vowels(char *p)
 {
+	if(p==NULL)
+	{
+		printf("\nsystem error occured");
+		return;
+	}
 	g_count=0;
 	for(g_i=0;p[g_i];g_i++)
 	{ if(p[g_i]=='A'||p[g_i]=='a'||p[g_i]=='e'||p[g_i]=='E'||p[g_i]=='i'||p[g_i]=='I'||p[g_i]=='o'||p[g_i]=='O'||p[g_i]=='u'||p[g_i]=='U')
@@ -84,16 +90,28 @@ void vowels(char *p)
 
 void consonants(char *p)
 {
+	if(p==NULL)
+	{
+		printf("\nsystem error occured");
+		return;
+	}
+
 	g_count=0;
 	for(g_i=0;p[g_i];g_i++)
 	{ if(p[g_i]!='A'&&p[g_i]!='a'&&p[g_i]!='e'&&p[g_i]!='E'&&p[g_i]!='i'&&p[g_i]!='I'&&p[g_i]!='o'&&p[g_i]!='O'&&p[g_i]!='u'&&p[g_i]!='U'&&((p[g_i]>=65&&p[g_i]<=91)||(p[g_i]>=97&&p[g_i]<=121)))	
-	g_count++;
+		g_count++;
 	}
 	printf("number of consonants : %d ",g_count);
 }
 
 void upper(char *p)
 {
+	if(p==NULL)
+	{
+		printf("\nsystem error occured");
+		return;
+	}
+
 	printf("\nupper case : ");
 	for(g_i=0;p[g_i];g_i++)
 	{
@@ -106,6 +124,12 @@ void upper(char *p)
 
 void lower(char *p)
 {
+	if(p==NULL)
+	{
+		printf("\nsystem error occured");
+		return;
+	}
+
 	printf("\nlower case : ");
 	for(g_i=0;p[g_i];g_i++)
 	{
