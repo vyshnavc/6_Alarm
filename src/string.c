@@ -25,53 +25,53 @@ void consonants(char *);
 void upper(char *);
 void lower(char *);
 int g_count,g_i;
+void newstring(char *);
 void menu(void);
 //#define max_len 100
 
 void main()
 {
 	//	printf(__TIME__);
-	char s[100],c;
-	do{ 
-		system("clear");
-		printf("enter a string: ");
-		scanf(" %[^\n]s",s);
-		printf("==========================================================================\n");
+	char string[100],c;
+
+	system("clear");
+	printf("enter a string: ");
+	scanf(" %[^\n]s",string);
+	do{     
+                system("clear");
+                printf("\n%s",string);
+		printf("\n==========================================================================\n");
 		menu();
 		printf("==========================================================================\n");
 		printf("enter a option : ");
 		scanf(" %c",&c);
 		printf("==========================================================================\n");
-		do{
-			switch(c)
-			{
-				case 'A': vowels(s);
-					  break;
-				case 'B':consonants(s);
-					 break;
-				case 'C':upper(s);
-					 break;
-				case 'D': lower(s);
-					  break;
-				case 'E': printf("\n%s",s);
-					  printf("\n======================================================================");
-					  menu();
-					  printf("\nenter a option : ");
-					  scanf(" %c",&c);
-                                    //    printf("\n%c",c);
-					  continue;
-				case 'I': break;
-				case 'X': return;
-				default :;
-			}
-		}while(0);
+		switch(c)
+		{
+			case 'A': vowels(string);
+				  break;
+			case 'B':consonants(string);
+				 break;
+			case 'C':upper(string);
+				 break;
+			case 'D': lower(string);
+				  break;
+			case 'E': printf("\n%s",string);
+				  break;
+			case 'I':newstring(string); 
+				 break;
+			case 'X': return;
+			default :;
+		}
+
+
 		printf("\n===========================================================================\n");
-		sleep(3);
+                sleep(2);
 	}while(1);
 }
 void menu(void)
 {
-	printf("\nA) Count the number of vowels in the string\nB) Count the number of consonants in the string\nC) Convert the string to uppercase\nD) Convert the string to lowercase\nE) Display the current string\nI) Enter another string\nM) Display this menu\nX) Exit the program\n");
+	printf("\nA) Count the number of vowels in the string\nB) Count the number of consonants in the string\nC) Convert the string to uppercase\nD) Convert the string to lowercase\nE) Display the current string\nI) Enter another string\nX) Exit the program\n");
 }
 void vowels(char *p)
 {
@@ -139,4 +139,10 @@ void lower(char *p)
 			printf("%c",p[g_i]);
 	}
 }
+void newstring(char *s)
+{
+	bzero(s,100);
+	printf("\nenter new string :\n");
+	scanf(" %[^\n]s",s);
+} 
 //((p[g_i]>=65&&p[g_i]<=91)||(p[g_i]>=97&&p[g_i]<=121))
