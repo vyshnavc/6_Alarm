@@ -1,5 +1,5 @@
 /* Run an infinite loop trying to accept user inputs, validate them for positive. If number is invalid, don't process and go back to input request. If valid: check if it's even number add it to a variable which holds the sum of all even numbers input so far. If odd number, save it in another variable which always gets updated with odd numbers such that it has only the largest odd number entered so far. If user gives zero as input at any point, get out of the loop immediately and print the even-summation variable and the max odd number storage variable. Do not use 'else' anywhere in the code.*/
-#include"header.h"
+#include"../inc/header.h"
 void main()
 {
 	int odd=0,even=0,num=1;
