@@ -1,5 +1,5 @@
 /* Write a program to accepts name and arrival time of 5 trains and display the name with railway time format (2PM is written as 14:00). The information must be entered by the user. */
-#include"header.h"
+#include"../inc/header.h"
 typedef struct train
 {
 	char train[50];
@@ -36,7 +36,7 @@ void traintime(int j,trai *train )
 {
 	printf("\nHr Mn Sec : ");
 	scanf("%d%d%d",&train[j].hr,&train[j].min,&train[j].sec);
-	if((train[j].hr<13&&train[j].hr>0)||(train[j].min<60&&train[j].min>0)||(train[j].sec<60||train[j].sec>0))
+	if((train[j].hr<13&&train[j].hr>0)||(train[j].min<60&&train[j].min>0)||(train[j].sec<60||train[j].sec>0))  /*will check numbers other than time format*/
 	{
 		printf("\nsomthing you entered wrong plese check the format \n");
 		printf("\n.............................................\n");
@@ -54,12 +54,12 @@ int i;
 for(i=0;i<5;i++)
 {
 printf("\n======================================================");
-if((strcmp("am",train[i].ampm)==0)||(strcmp("AM",train[i].ampm)==0))
+if((strcmp("am",train[i].ampm)==0)||(strcmp("AM",train[i].ampm)==0))     /*if it is pm it will convert to 24 hr format by adding 12*/
 printf("\ntrain name : %s   train time : %d:%d:%d  %s",train[i].train,train[i].hr,train[i].min,train[i].sec,train[i].ampm);
 else
 {
 //trai[i].hr=trai[i].hr+12;
-printf("\ntrain name : %s   train time : %d:%d:%d  %s",train[i].train,train[i].hr+12,train[i].min,train[i].sec,train[i].ampm);
+printf("\ntrain name : %s   train time : %d:%d:%d",train[i].train,train[i].hr+12,train[i].min,train[i].sec);
 }
 }
 }
