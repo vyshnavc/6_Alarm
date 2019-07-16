@@ -6,18 +6,25 @@
  */
 
 #include"../inc/header.h"
-int g_computer,g_user;
 int matchsti(int *);
 int main()
 {
 	int matchstick=21;
-	while(matchstick>=1)
+	char c;
+        while(matchstick>=1)
 	{
 		system("clear");                               
 		printf("\t-------Welcome to Matchstick Game-------\n");
 		if(matchstick==1)
 		{      
 			printf("...COMPUTER WON THE GAME...\n");
+			printf("\n\ndo you want to continue the game ? y/n :");
+                        scanf(" %c",&c);
+                        if(c=='y'||c=='Y')
+			{
+				matchstick=21;
+				continue;
+			}
 			break;
 		}
 		printf("remaining matchstick=%d\n",matchstick);
@@ -27,6 +34,7 @@ int main()
 }
 int matchsti(int *match)
 {
+        int computer,user;
 	if(match==NULL)
 	{
 		printf("\nsystem error occured");
@@ -36,19 +44,19 @@ int matchsti(int *match)
 	{
 		printf("\rhave to pick 1-4....\n");
 		printf("\r\t user turn:");
-		scanf("%d",&g_user);
-		if(g_user<=0 ||g_user>4)                            //for numbers other than 0-4 and symbols entered display wrong pick
-		{
+		scanf("%d",&user);
+		if(user<=0 ||user>4)                           /*for numbers other than 0-4 and symbols entered display wrong pick*/
+		{                                        
 			printf("\nWrong pick....... \n");
 			continue;  
 		} 
-		printf("\ruser take=%d",g_user);
-		g_computer=5-g_user;                                     //win logic 
+		printf("\ruser take=%d",user);
+		computer=5-user;                                     /*win logic*/
 		printf("\n\t computer turn:");
 		printf("\n");
-		printf("copmuter take =%d\n",g_computer);
+		printf("copmuter take =%d\n",computer);
 		sleep(2);
-		*match=*match-g_user-g_computer;
+		*match=*match-user-computer;
 		break;
 	}
 	return *match;
