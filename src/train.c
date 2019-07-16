@@ -16,7 +16,7 @@ void main()
 {
 	int i,j;
 	trai t[5];
-	system("sl");
+	system("sl");                    /*sudo apt-get install sl*/
 	for(i=0;i<5;i++)
 	{
 		printf("................TRAIN TIME...................\n");
