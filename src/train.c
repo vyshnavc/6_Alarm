@@ -32,23 +32,31 @@ void trainname(int j,trai *train)
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		exit(0);
+		main();
 	}
 	printf("\nenter train %d name : ",j+1);
 	scanf("  %[^\n]s",train[j].train);
 }
 void traintime(int j,trai *train )
-{
+{      
+	int r;
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		exit(0);
+		main();
 	}
 	printf("\nHr Mn Sec : ");
-	scanf("%d%d%d",&train[j].hr,&train[j].min,&train[j].sec);
-	if((train[j].hr>13||train[j].hr<0)||(train[j].min>60||train[j].min<0)||(train[j].sec>60||train[j].sec<0))  /*will check numbers other than time format*/
-        {
-		printf("\nsomthing you entered wrong plese check the format \n");
+	r=scanf("%d%d%d",&train[j].hr,&train[j].min,&train[j].sec);
+	if(r!=3)
+	{
+		printf("\nsomthing you entered wrong plese check the format : 00 00 00\n");
+		printf("\n.............................................\n");
+		scanf("%*s");
+		traintime(j,train);
+	} 
+	else if((train[j].hr>13||train[j].hr<0)||(train[j].min>60||train[j].min<0)||(train[j].sec>60||train[j].sec<0))  /*will check numbers other than time format*/
+	{
+		printf("\nsomthing you entered wrong plese check the format : 00 00 00 \n");
 		printf("\n.............................................\n");
 		traintime(j,train);
 	}
@@ -58,7 +66,7 @@ void ampm(int j,trai *train)
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		exit(0);
+		main();
 	}
 	printf("\nenter am or pm : ");
 	scanf(" %s",train[j].ampm);
@@ -68,7 +76,7 @@ void trainprint(trai *train)
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		exit(0);
+		main();
 	}
 	int i;
 	for(i=0;i<5;i++)
