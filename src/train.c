@@ -51,7 +51,7 @@ void traintime(int j,trai *train )
 	{
 		printf("\nsomthing you entered wrong plese check the format : 00 00 00\n");
 		printf("\n.............................................\n");
-		scanf("%*s");
+		scanf("%*s%*s%*s");
 		traintime(j,train);
 	} 
 	else if((train[j].hr>13||train[j].hr<0)||(train[j].min>60||train[j].min<0)||(train[j].sec>60||train[j].sec<0))  /*will check numbers other than time format*/
