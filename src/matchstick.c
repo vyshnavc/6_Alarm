@@ -34,7 +34,7 @@ int main()
 }
 int matchsti(int *match)
 {
-        int computer,user;
+        int computer,user,r;
 	if(match==NULL)
 	{
 		printf("\nsystem error occured");
@@ -44,8 +44,14 @@ int matchsti(int *match)
 	{
 		printf("\rhave to pick 1-4....\n");
 		printf("\r\t user turn:");
-		scanf("%d",&user);
-		if(user<=0 ||user>4)                           /*for numbers other than 0-4 and symbols entered display wrong pick*/
+		r=scanf("%d",&user);
+		if(r==0)
+		{
+			printf("\nWrong pick....... \n");
+			scanf("%*s");
+			continue;  
+		}
+		else if(user<=0 ||user>4)                           /*for numbers other than 0-4 and symbols entered display wrong pick*/
 		{                                        
 			printf("\nWrong pick....... \n");
 			continue;  
