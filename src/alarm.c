@@ -1,7 +1,7 @@
 /* Write a program for Silent Message notification application using structure/union. User has to set some notification time in human readable format 
  * and application should compare it with system time and print the notification message on the screen. (Kind of an alarm). Make it as interactive as possible.
  */
-#include "/home/vvdn/vyshnav/training/trainee/inc/header.h"
+#include "../inc/header.h"
 #define max_len 100
 #define max_tim 10
 typedef struct alarm
@@ -13,7 +13,7 @@ void main()
 {
 	al s[10];
 	char a[11],string[100],stime[20],c,x;
-	int i,j,k,fd[2];
+	int i,j,k,fd[2],test,hour,min,sec;
 	if(pipe(fd)==-1)
 	{
 		perror("pipe");
@@ -62,10 +62,17 @@ void main()
 			printf("enter the notification : ");
 			scanf(" %[^\n]s",string);
 			write(fd[1],string,strlen(string)+1);
-			printf("\nenter the notification time in railway time  format H:m:s:-");
-			scanf(" %s",stime);
-			write(fd[1],stime,strlen(stime)+1);
-			printf("\nalarm set......");
+		       l:printf("\nenter the notification time in railway time  format 00H 00m 00s:-");
+			test=scanf("%d%d%d",&hour,&min,&sec);
+                        if(test!=3)
+                        {
+                         printf("\nerror check the format\n");
+			 scanf("%*s");
+                         goto l;
+                        }
+                        sprintf(stime,"%02d:%02d:%02d",hour,min,sec); 
+                        write(fd[1],stime,strlen(stime)+1);
+		        printf("\nalarm set......");
 			printf("\ndo you want to add new alarm y/n?");
 			scanf(" %c",&c);
 			write(fd[1],&c,1);
