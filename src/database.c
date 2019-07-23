@@ -2,60 +2,130 @@
  * * Advance C assignment question 2.
  * * Write a program to create a student database.
  * * The fields in the database will be Student ID, name, address, class, age, sex etc.The number of entries are variable also the fields name & address are char , which needs to be allocated dynamically as per the number of characters needed.
- * * Then the user should be able to find the details of any particular student based on the ID/name
- * */
+ * * Then the user should be able to find the details of any particular student based on the ID/name while quitting the program save the data base, and it should be loaded the 
+* next time the program is executed.
+*/ 
 #include"../inc/header.h"
 typedef struct student
 {
 	int studentID;
-	char name[50];
+	char name[100];
 	char address[100];
-	char class[10];
+	char class[100];
 	int age;
-	char sex[5];
+	char sex[100];
 	struct student *next;
 }student;
-void database(student**);
-void searchbyname(student *);
-void searchbyID(student *);
-void print(student *);
+FILE *fp;
+int file(student **);
+int linklist(student *,student **);
+int database(student **);
+int searchbyname(student *);
+int searchbyID(student *);
+int print(student *);
 void main()
 {
 	student *hptr=0;
+	int r;
 	char c;
-	printf("\n====================student data base===================");
-	do
+	file(&hptr);
+	while(1)
 	{       
-		system("clear");
-		database(&hptr);
+		printf("\n====================student data base===================");
+		//		system("clear");
+		r=database(&hptr);
+		if(r==0)
+			continue;
 		printf("\ndo you want to continue y/n : ");
 		scanf(" %c",&c);
-	}while(c=='y'||c=='Y');
-	do
+		if(c=='n'||c=='N')
+                break;
+	}
+	while(1)
 	{       
-		system("clear");
+
 		printf("\nsearching method.....\nA)using name\nB)using student ID\nX)print all and exit\nenter a option : ");
-		scanf(" %c",&c);
+	        scanf(" %c",&c);
+                system("clear");
 		if(c=='a'||c=='A')
-			searchbyname(hptr);
+		{
+			r=searchbyname(hptr);
+			if(r==0)
+				continue;
+		}
 		else if(c=='b'||c=='B')
-			searchbyID(hptr);
+		{	
+			r=searchbyID(hptr);
+			if(r==0)
+				continue;
+		}
 		else if(c=='x'||c=='X')
-			print(hptr);
+		{
+			r=print(hptr);
+			if(r==0)
+				continue;
+			break;
+		}		
 		else
 		{
 			printf("\nwrong choice...try again");
 			continue;
 		}
 		sleep(2);
-	}while(c!='x'&&c!='X');
+		//break;
+	}
+        fclose(fp);
 }
-void database(student **ptr)
+int file(student **ptr)
+{       
+	char option;
+	student st;
+	fp=fopen("memory","r");
+        student *temp=(student*)malloc(sizeof(student));
+	if(fp!=NULL)
+	{
+		while(1)
+		{
+			printf("\nprevious datas are available...\nA)append the file\nB)overwrite the file\nC)print the data and continue with new data\nenter an option : ");
+			scanf(" %c",&option);
+			if(option=='a'||option=='A')
+			{
+				while(fscanf(fp,"%d %s %d %s %s %[^\n]s",&temp->studentID,temp->name,&temp->age,temp->sex,temp->class,temp->address)!=EOF)
+				{  //     printf("%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+					linklist(temp,ptr);
+	                                student *temp=(student*)malloc(sizeof(student));
+				}
+				fp=fopen("memory","a");
+                                free(temp);
+			}
+			else if(option=='b'||option=='B')
+				fp=fopen("memory","w");
+			else if(option=='c'||option=='C')
+			{
+				while(fscanf(fp,"%d %s %d %s %s %[^\n]s\n",&st.studentID,st.name,&st.age,st.sex,st.class,st.address)!=EOF)
+					printf("\nID:%d\nNAME:%s\nAGE:%d\nADDRESS:%s\nCLASS:%s\nSEX:%s\n",st.studentID,st.name,st.age,st.address,st.class,st.sex);
+				fp=fopen("memory","w");
+			}
+			else
+			{
+				printf("\nwrong input");
+				continue;
+			}
+			break;
+		}
+	}
+        else
+       {
+         fp=fopen("memory","w");
+       }
+
+}
+int database(student **ptr)
 {       
 	if(ptr==NULL)
 	{
 		printf("\nsystem error occured..");
-		main();
+		return 0;
 	}
 	int r,r1;
 	student *last;
@@ -86,6 +156,14 @@ void database(student **ptr)
 	scanf(" %s",temp->class);
 	printf("\nenter sex - male/female : ");
 	scanf(" %s",temp->sex);
+	linklist(temp,ptr);
+//        fp=fopen("memory","w");
+        fprintf(fp,"%d %s %d %s %s %s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+	return 1;
+}
+int linklist(student *temp,student **ptr)
+{
+	student *last;
 	if(*ptr==0)
 		*ptr=temp;
 	else
@@ -96,12 +174,12 @@ void database(student **ptr)
 		last->next=temp;
 	}
 }
-void searchbyname(student *name)
-{
+int searchbyname(student *name)
+{ 
 	if(name==NULL)
 	{
 		printf("\nsystem error occured..");
-		main();
+		return 0;
 	}
 
 	int check=0;
@@ -114,19 +192,19 @@ void searchbyname(student *name)
 		if(strcmp(test->name,sname)==0)
 		{
 			check=1;
-			printf("\n%d\n%s\n%d\n%s\n%s\n%s",test->studentID,test->name,test->age,test->address,test->class,test->sex);
-		}
+			printf("\nID:%d\nNAME:%s\nAGE:%d\nADDRESS:%s\nCLASS:%s\nSEX:%s\n",test->studentID,test->name,test->age,test->address,test->class,test->sex);		}
 		test=test->next;
 	}
 	if(check==0)
 		printf("\nname not found......");
+	return 1;
 }
-void searchbyID(student *ID)
+int searchbyID(student *ID)
 {
 	if(ID==NULL)
 	{
 		printf("\nsystem error occured..");
-		main();
+		return 0;
 	}
 	int check=0,s_id;
 	student *test=ID;
@@ -137,24 +215,27 @@ void searchbyID(student *ID)
 		if(test->studentID==s_id)
 		{
 			check=1;
-			printf("\n%d\n%s\n%d\n%s\n%s\n%s",test->studentID,test->name,test->age,test->address,test->class,test->sex);
+			printf("\nID:%d\nNAME:%s\nAGE:%d\nADDRESS:%s\nCLASS:%s\nSEX:%s\n",test->studentID,test->name,test->age,test->address,test->class,test->sex);
 		}
 		test=test->next;
 	}
 	if(check==0)
 		printf("\nstudent ID not found......");
+	return 1;
 }
-void print(student *ptr)
+int print(student *ptr)
 {
 	if(ptr==NULL)
 	{
 		printf("\nsystem error occured..");
-		main();
+		return 0;
 	}
 	while(ptr!=0)
 	{         
 		printf("\n===========================================");
-		printf("\n%d\n%d\n%s\n%s\n%s\n%s",ptr->studentID,ptr->age,ptr->name,ptr->address,ptr->class,ptr->sex);
+		printf("\nID:%d\nNAME:%s\nAGE:%d\nADDRESS:%s\nCLASS:%s\nSEX:%s\n",ptr->studentID,ptr->name,ptr->age,ptr->address,ptr->class,ptr->sex);
 		ptr=ptr->next;
 	}
+	return 1;
 }
+
