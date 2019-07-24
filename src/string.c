@@ -33,14 +33,14 @@ void main()
 {
 	//	printf(__TIME__);
 	char string[100],c;
-        int checknull;
+	int checknull;
 
 	system("clear");
 	printf("enter a string: ");
 	scanf(" %[^\n]s",string);
 	do{     
-                system("clear");
-                printf("\n%s",string);
+		system("clear");
+		printf("\n%s",string);
 		printf("\n==========================================================================\n");
 		menu();
 		printf("==========================================================================\n");
@@ -50,43 +50,43 @@ void main()
 		switch(c)
 		{
 			case 'A': 
-                                  do
-{
-                                 checknull=vowels(string);
-}while(checknull==0);
-				  break;
+				do
+				{
+					checknull=vowels(string);
+				}while(checknull==0);
+				break;
 			case 'B':
-do
-{
-checknull=consonants(string);
-}while(checknull==0);
-				 break;
+				do
+				{
+					checknull=consonants(string);
+				}while(checknull==0);
+				break;
 			case 'C':
-do
-{
-checknull=upper(string);
-}while(checknull==0);				 break;
+				do
+				{
+					checknull=upper(string);
+				}while(checknull==0);				 break;
 			case 'D': 
-do
-{
-checknull=lower(string);
-}while(checknull==0);
-				  break;
+				do
+				{
+					checknull=lower(string);
+				}while(checknull==0);
+				break;
 			case 'E': printf("\n%s",string);
 				  break;
 			case 'I':
-do
-{
-checknull=newstring(string); 
-}while(checknull==0);
-				 break;
+				  do
+				  {
+					  checknull=newstring(string); 
+				  }while(checknull==0);
+				  break;
 			case 'X': return;
 			default :;
 		}
 
 
 		printf("\n===========================================================================\n");
-                sleep(2);
+		sleep(2);
 	}while(1);
 }
 void menu(void)
