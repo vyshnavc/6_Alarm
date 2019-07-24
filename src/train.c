@@ -8,42 +8,43 @@ typedef struct train
 	int sec;
 	char ampm[5];
 }trai;
-void trainname(int ,trai *);
-void traintime(int ,trai *);
-void ampm(int ,trai *);
-void trainprint(trai *);
+int trainname(int ,trai *);
+int traintime(int ,trai *);
+int ampm(int ,trai *);
+int trainprint(trai *);
 void main()
 {
-	int i,j;
+	int i,j,nullcheck;
 	trai t[5];
 	system("sl");                    /*sudo apt-get install sl*/
 	for(i=0;i<5;i++)
 	{
 		printf("................TRAIN TIME...................\n");
 		system("clear");
-		trainname(i,t);
-		traintime(i,t);
-		ampm(i,t);
+		do{nullcheck=trainname(i,t);}while(nullcheck==0);
+		do{nullcheck=traintime(i,t);}while(nullcheck==0);
+		do{nullcheck=ampm(i,t);}while(nullcheck==0);
 	}
 	trainprint(t);
 }
-void trainname(int j,trai *train)
+int trainname(int j,trai *train)
 {
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		main();
+		return 0;
 	}
 	printf("\nenter train %d name : ",j+1);
 	scanf("  %[^\n]s",train[j].train);
+	return 1;
 }
-void traintime(int j,trai *train )
+int traintime(int j,trai *train )
 {      
 	int r;
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		main();
+		return 0;
 	}
 	printf("\nHr Mn Sec : ");
 	r=scanf("%d%d%d",&train[j].hr,&train[j].min,&train[j].sec);
@@ -60,23 +61,25 @@ void traintime(int j,trai *train )
 		printf("\n.............................................\n");
 		traintime(j,train);
 	}
+return 1;
 }
-void ampm(int j,trai *train)
+int ampm(int j,trai *train)
 {
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		main();
+		return 0;
 	}
 	printf("\nenter am or pm : ");
 	scanf(" %s",train[j].ampm);
+return 1;
 }
-void trainprint(trai *train)
+int trainprint(trai *train)
 {
 	if(train==NULL)
 	{
 		printf("\nsystem error occured");
-		main();
+		return 0;
 	}
 	int i;
 	for(i=0;i<5;i++)
@@ -90,5 +93,6 @@ void trainprint(trai *train)
 			printf("\ntrain name : %s   train time : %d:%d:%d",train[i].train,train[i].hr+12,train[i].min,train[i].sec);
 		}
 	}
+return 1;
 }
 
