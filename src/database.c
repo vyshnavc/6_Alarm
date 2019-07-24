@@ -5,7 +5,7 @@
  * * Then the user should be able to find the details of any particular student based on the ID/name while quitting the program save the data base, and it should be loaded the 
 * next time the program is executed.
 */ 
-#include"../inc/header.h"
+#include"header.h"
 typedef struct student
 {
 	int studentID;
@@ -17,8 +17,8 @@ typedef struct student
 	struct student *next;
 }student;
 FILE *fp;
-int file(student **);
-int linklist(student *,student **);
+void file(student **);
+void linklist(student *,student **);
 int database(student **);
 int searchbyname(student *);
 int searchbyID(student *);
@@ -28,16 +28,17 @@ void main()
 	student *hptr=0;
 	int r;
 	char c;
-	file(&hptr);
 	while(1)
 	{       
 		printf("\n====================student data base===================");
 		//		system("clear");
+//              print(hptr);
 		r=database(&hptr);
 		if(r==0)
 			continue;
 		printf("\ndo you want to continue y/n : ");
 		scanf(" %c",&c);
+                fflush(stdout);
 		if(c=='n'||c=='N')
                 break;
 	}
@@ -74,14 +75,13 @@ void main()
 		sleep(2);
 		//break;
 	}
-        fclose(fp);
+	fclose(fp);
 }
-int file(student **ptr)
+void file(student **ptr)
 {       
 	char option;
 	student st;
 	fp=fopen("memory","r");
-        student *temp=(student*)malloc(sizeof(student));
 	if(fp!=NULL)
 	{
 		while(1)
@@ -89,14 +89,16 @@ int file(student **ptr)
 			printf("\nprevious datas are available...\nA)append the file\nB)overwrite the file\nC)print the data and continue with new data\nenter an option : ");
 			scanf(" %c",&option);
 			if(option=='a'||option=='A')
-			{
-				while(fscanf(fp,"%d %s %d %s %s %[^\n]s",&temp->studentID,temp->name,&temp->age,temp->sex,temp->class,temp->address)!=EOF)
-				{  //     printf("%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+			{      
+				student *temp=(student*)malloc(sizeof(student));
+				while(fscanf(fp,"%d%s%d%s%s%[^\n]s",&temp->studentID,temp->name,&temp->age,temp->sex,temp->class,temp->address)!=EOF)
+				{//	printf("\np1:%p",*ptr);	
 					linklist(temp,ptr);
-	                                student *temp=(student*)malloc(sizeof(student));
+                                        //temp=0;
+					temp=(student*)malloc(sizeof(student));
 				}
 				fp=fopen("memory","a");
-                                free(temp);
+				free(temp);
 			}
 			else if(option=='b'||option=='B')
 				fp=fopen("memory","w");
@@ -114,10 +116,10 @@ int file(student **ptr)
 			break;
 		}
 	}
-        else
-       {
-         fp=fopen("memory","w");
-       }
+	else
+	{
+		fp=fopen("memory","w");
+	}
 
 }
 int database(student **ptr)
@@ -128,7 +130,7 @@ int database(student **ptr)
 		return 0;
 	}
 	int r,r1;
-	student *last;
+	//student *last;
 	student *temp=(student*)malloc(sizeof(student));
 	printf("\nenter student ID : ");
 	r=scanf("%d",&temp->studentID);
@@ -156,21 +158,30 @@ int database(student **ptr)
 	scanf(" %s",temp->class);
 	printf("\nenter sex - male/female : ");
 	scanf(" %s",temp->sex);
+	// fflush(stdout); 
 	linklist(temp,ptr);
-//        fp=fopen("memory","w");
-        fprintf(fp,"%d %s %d %s %s %s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+	//        fp=fopen("memory","w");
+	fprintf(fp,"%d %s %d %s %s %s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
 	return 1;
 }
-int linklist(student *temp,student **ptr)
+void linklist(student *temp,student **ptr)
 {
+
+	//  printf("%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+	//printf("%p",*ptr); 
 	student *last;
+	temp->next=0; 
 	if(*ptr==0)
-		*ptr=temp;
+	{//  printf("1:%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+		*ptr=temp;}
 	else
-	{
+	{       
+	//	printf("2:%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
 		last=*ptr;
 		while(last->next!=0)
-			last=last->next;
+		{	last=last->next;
+			//printf("3:%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+		}
 		last->next=temp;
 	}
 }
