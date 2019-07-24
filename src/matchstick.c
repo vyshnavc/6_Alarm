@@ -29,16 +29,19 @@ int main()
 		}
 		printf("remaining matchstick=%d\n",matchstick);
 		printf("\n---------------------------------------\n");
-		matchstick=matchsti(&matchstick);
+		do
+		{
+			matchstick=matchsti(&matchstick);
+		}while(matchstick==0);
 	}
 }
 int matchsti(int *match)
 {
-        int computer,user,r;
+	int computer,user,r;
 	if(match==NULL)
 	{
 		printf("\nsystem error occured");
-		exit(0);
+		return 0;
 	}
 	while(1)
 	{
