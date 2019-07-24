@@ -3,9 +3,9 @@
  * * Write a program to create a student database.
  * * The fields in the database will be Student ID, name, address, class, age, sex etc.The number of entries are variable also the fields name & address are char , which needs to be allocated dynamically as per the number of characters needed.
  * * Then the user should be able to find the details of any particular student based on the ID/name while quitting the program save the data base, and it should be loaded the 
-* next time the program is executed.
-*/ 
-#include"header.h"
+ * next time the program is executed.
+ */ 
+#include"../inc/header.h"
 typedef struct student
 {
 	int studentID;
@@ -17,54 +17,62 @@ typedef struct student
 	struct student *next;
 }student;
 FILE *fp;
-void file(student **);
-void linklist(student *,student **);
+int file(student **);
+int linklist(student *,student **);
 int database(student **);
 int searchbyname(student *);
 int searchbyID(student *);
 int print(student *);
+int r;
 void main()
 {
 	student *hptr=0;
-	int r;
 	char c;
+	do
+	{
+		r=file(&hptr);
+	}while(r==0);
 	while(1)
 	{       
 		printf("\n====================student data base===================");
 		//		system("clear");
-//              print(hptr);
 		r=database(&hptr);
 		if(r==0)
 			continue;
 		printf("\ndo you want to continue y/n : ");
 		scanf(" %c",&c);
-                fflush(stdout);
+		fflush(stdout);
 		if(c=='n'||c=='N')
-                break;
+			break;
 	}
 	while(1)
 	{       
 
 		printf("\nsearching method.....\nA)using name\nB)using student ID\nX)print all and exit\nenter a option : ");
-	        scanf(" %c",&c);
-                system("clear");
+		scanf(" %c",&c);
+		system("clear");
 		if(c=='a'||c=='A')
 		{
-			r=searchbyname(hptr);
-			if(r==0)
-				continue;
+			do
+			{
+				r=searchbyname(hptr);
+			}while(r==0);			
+
 		}
 		else if(c=='b'||c=='B')
-		{	
-			r=searchbyID(hptr);
-			if(r==0)
-				continue;
+		{
+			do
+			{	
+				r=searchbyID(hptr);
+			}while(r==0);
 		}
 		else if(c=='x'||c=='X')
 		{
-			r=print(hptr);
-			if(r==0)
-				continue;
+			do
+			{	
+				r=print(hptr);
+			}while(r==0);	
+
 			break;
 		}		
 		else
@@ -77,8 +85,13 @@ void main()
 	}
 	fclose(fp);
 }
-void file(student **ptr)
-{       
+int file(student **ptr)
+{    
+	if(ptr==NULL)
+	{
+		printf("\nsystem error occured....");
+		return 0;
+	}   
 	char option;
 	student st;
 	fp=fopen("memory","r");
@@ -92,9 +105,11 @@ void file(student **ptr)
 			{      
 				student *temp=(student*)malloc(sizeof(student));
 				while(fscanf(fp,"%d%s%d%s%s%[^\n]s",&temp->studentID,temp->name,&temp->age,temp->sex,temp->class,temp->address)!=EOF)
-				{//	printf("\np1:%p",*ptr);	
-					linklist(temp,ptr);
-                                        //temp=0;
+				{	
+					do
+					{
+						r=linklist(temp,ptr);
+					}while(r==0);      
 					temp=(student*)malloc(sizeof(student));
 				}
 				fp=fopen("memory","a");
@@ -120,7 +135,7 @@ void file(student **ptr)
 	{
 		fp=fopen("memory","w");
 	}
-
+	return 1;
 }
 int database(student **ptr)
 {       
@@ -158,17 +173,20 @@ int database(student **ptr)
 	scanf(" %s",temp->class);
 	printf("\nenter sex - male/female : ");
 	scanf(" %s",temp->sex);
-	// fflush(stdout); 
-	linklist(temp,ptr);
-	//        fp=fopen("memory","w");
+	do
+	{
+		r=linklist(temp,ptr);
+	}while(r==0);
 	fprintf(fp,"%d %s %d %s %s %s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
 	return 1;
 }
-void linklist(student *temp,student **ptr)
+int linklist(student *temp,student **ptr)
 {
-
-	//  printf("%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
-	//printf("%p",*ptr); 
+	if(temp==NULL&&ptr==NULL)
+	{
+		printf("\nsystem error occured...");
+		return 0;
+	}
 	student *last;
 	temp->next=0; 
 	if(*ptr==0)
@@ -176,7 +194,7 @@ void linklist(student *temp,student **ptr)
 		*ptr=temp;}
 	else
 	{       
-	//	printf("2:%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
+		//	printf("2:%d%s%d%s%s%s\n",temp->studentID,temp->name,temp->age,temp->sex,temp->class,temp->address);
 		last=*ptr;
 		while(last->next!=0)
 		{	last=last->next;
@@ -184,6 +202,7 @@ void linklist(student *temp,student **ptr)
 		}
 		last->next=temp;
 	}
+	return 1;
 }
 int searchbyname(student *name)
 { 
