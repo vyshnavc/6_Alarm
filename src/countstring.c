@@ -16,11 +16,12 @@
 #include"../inc/header.h"
 #define max_len 100
 int i,j;
-void capitalize(char *);
-void alternative(char *);
-void invert(char *);
-void main()
+int capitalize(char *);
+int alternative(char *);
+int invert(char *);
+int main()
 {
+	int nullcheck;
 	printf("==================count string=========================");
 	char str[max_len],c;
 	do
@@ -48,27 +49,37 @@ void main()
 		switch(c)
 		{
 			case 'A':
-				capitalize(str);
+				do
+				{
+					nullcheck=capitalize(str);
+				}while(nullcheck==0);
 				break;
 			case 'B':
-				alternative(str);
+				do
+				{			
+					nullcheck=alternative(str);
+				}while(nullcheck==0);
 				break;
 			case 'C':
-				invert(str);
+				do
+				{
+					nullcheck=invert(str);
+
+				}while(nullcheck==0);
 				break;
 			case 'X':
-				return;
+				return 0;
 			default:;
 		}
 	}while(1);
 }
-void capitalize(char *p)
+int capitalize(char *p)
 {
-if(p==NULL)
-{
-printf("\nsystem error occured try after sometimes..");
-return;
-}
+	if(p==NULL)
+	{
+		printf("\nsystem error occured try after sometimes..");
+		return 0;
+	}
 	for(i=0;p[i];i++)
 	{
 		if(i==0&&p[i]>=97&&p[i]<=122)
@@ -78,14 +89,15 @@ return;
 		else;
 	}
 	printf("capitalized : %s\n",p);
+	return 1;
 } 
-void alternative(char *p)
+int alternative(char *p)
 {
-if(p==NULL)
-{
-printf("\nsystem error occured try after sometimes..");
-return;
-}
+	if(p==NULL)
+	{
+		printf("\nsystem error occured try after sometimes..");
+		return 0;
+	}
 	char u;
 	printf("\nupper case or lower case u/l : ");
 	scanf(" %c",&u);
@@ -119,14 +131,15 @@ return;
 		printf("\nwrong choice try again ");
 		alternative(p);
 	}
+	return 1;
 }
-void invert(char *p)
+int invert(char *p)
 {
-if(p==NULL)
-{
-printf("\nsystem error occured try after sometimes..");
-return;
-}
+	if(p==NULL)
+	{
+		printf("\nsystem error occured try after sometimes..");
+		return 0;
+	}
 	printf("\ninvert : ");
 	for(i=0;p[i];i++)
 	{
@@ -137,6 +150,7 @@ return;
 		else;
 	}
 	printf("%s\n",p);
+	return 1;
 }
 
 
