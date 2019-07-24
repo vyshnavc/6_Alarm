@@ -20,19 +20,20 @@
  *
  */
 #include"../inc/header.h"
-void vowels(char *);
-void consonants(char *);
-void upper(char *);
-void lower(char *);
-int g_count,g_i;
-void newstring(char *);
+int vowels(char *);
+int consonants(char *);
+int upper(char *);
+int lower(char *);
+int newstring(char *);
 void menu(void);
 //#define max_len 100
+int g_count,g_i;
 
 void main()
 {
 	//	printf(__TIME__);
 	char string[100],c;
+        int checknull;
 
 	system("clear");
 	printf("enter a string: ");
@@ -48,17 +49,36 @@ void main()
 		printf("==========================================================================\n");
 		switch(c)
 		{
-			case 'A': vowels(string);
+			case 'A': 
+                                  do
+{
+                                 checknull=vowels(string);
+}while(checknull==0);
 				  break;
-			case 'B':consonants(string);
+			case 'B':
+do
+{
+checknull=consonants(string);
+}while(checknull==0);
 				 break;
-			case 'C':upper(string);
-				 break;
-			case 'D': lower(string);
+			case 'C':
+do
+{
+checknull=upper(string);
+}while(checknull==0);				 break;
+			case 'D': 
+do
+{
+checknull=lower(string);
+}while(checknull==0);
 				  break;
 			case 'E': printf("\n%s",string);
 				  break;
-			case 'I':newstring(string); 
+			case 'I':
+do
+{
+checknull=newstring(string); 
+}while(checknull==0);
 				 break;
 			case 'X': return;
 			default :;
@@ -73,12 +93,12 @@ void menu(void)
 {
 	printf("\nA) Count the number of vowels in the string\nB) Count the number of consonants in the string\nC) Convert the string to uppercase\nD) Convert the string to lowercase\nE) Display the current string\nI) Enter another string\nX) Exit the program\n");
 }
-void vowels(char *p)
+int vowels(char *p)
 {
 	if(p==NULL)
 	{
 		printf("\nsystem error occured");
-		return;
+		return 0;
 	}
 	g_count=0;
 	for(g_i=0;p[g_i];g_i++)
@@ -86,14 +106,15 @@ void vowels(char *p)
 		g_count++;
 	}
 	printf("number of vowels : %d ",g_count);
+return 1;
 }
 
-void consonants(char *p)
+int consonants(char *p)
 {
 	if(p==NULL)
 	{
 		printf("\nsystem error occured");
-		return;
+		return 0;
 	}
 
 	g_count=0;
@@ -102,14 +123,15 @@ void consonants(char *p)
 		g_count++;
 	}
 	printf("number of consonants : %d ",g_count);
+return 1;
 }
 
-void upper(char *p)
+int upper(char *p)
 {
 	if(p==NULL)
 	{
 		printf("\nsystem error occured");
-		return;
+		return 0;
 	}
 
 	printf("\nupper case : ");
@@ -120,14 +142,15 @@ void upper(char *p)
 		else
 			printf("%c",p[g_i]);
 	}
+return 1;
 }
 
-void lower(char *p)
+int lower(char *p)
 {
 	if(p==NULL)
 	{
 		printf("\nsystem error occured");
-		return;
+		return 0;
 	}
 
 	printf("\nlower case : ");
@@ -138,16 +161,18 @@ void lower(char *p)
 		else
 			printf("%c",p[g_i]);
 	}
+return 1;
 }
-void newstring(char *s)
+int newstring(char *s)
 {
 	if(s==NULL)
 	{
 		printf("\nsystem error occured");
-		return;
+		return 0;
 	}
 	bzero(s,100);
 	printf("\nenter new string :\n");
 	scanf(" %[^\n]s",s);
+return 1;
 } 
 //((p[g_i]>=65&&p[g_i]<=91)||(p[g_i]>=97&&p[g_i]<=121))
