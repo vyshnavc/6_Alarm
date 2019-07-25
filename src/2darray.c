@@ -10,7 +10,7 @@
  *
  *
  */
-#include"../inc/header.h"
+#include"../inc/2darray.h"
 #define colm 50
 int pointerarray(char (*)[50],int,char *);
 int arrayofpointer(char **,int,char*);
