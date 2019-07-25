@@ -1,7 +1,7 @@
 /* Write a program for Silent Message notification application using structure/union. User has to set some notification time in human readable format 
  * and application should compare it with system time and print the notification message on the screen. (Kind of an alarm). Make it as interactive as possible.
  */
-#include "../inc/header.h"
+#include "../inc/6_Alarm.h"
 #define max_len 100
 #define max_tim 10
 typedef struct alarm
