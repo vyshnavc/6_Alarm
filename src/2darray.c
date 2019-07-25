@@ -12,10 +12,11 @@
  */
 #include"../inc/header.h"
 #define colm 50
-void pointerarray(char (*)[50],int,char *);
+int pointerarray(char (*)[50],int,char *);
+int arrayofpointer(char **,int,char*);
 void main()
 {
-	int row,count;
+	int row,count,nullcheck;
 	printf("enter how many names you wan to enter : \n");
 	scanf("%d",&row);
 	int test=0;
@@ -31,36 +32,55 @@ void main()
 	printf("\nenter a name to search :\n");
 	scanf("%s",sname);
 	printf("\n===============================================");
-        printf("\nsearching method......\n");
+	printf("\nsearching method......\n");
 	printf("a)array of pointer\nb)pointer to an array\nenter a option : ");
 	scanf(" %c",&option);
 	if(option=='a'||'A')
-	{
-		for(count=0;count<row;count++)
-		{
-			if(strcmp(array[count],sname)==0)
-			{
-				test=1;
-				printf("\n%s found at position %d\n",sname,count+1);
-			}
-		}
-		if(test!=1)
-			printf("\nstring is not present in the array");
+	{ 
+		do
+		{ 	
+			nullcheck=arrayofpointer(array,row,sname);
+		}while(nullcheck==0);	
 	}
 	else if(option=='b'||'B')
-		pointerarray(name,row,sname);
+	{
+		do
+		{
+			nullcheck=pointerarray(name,row,sname);
+		}while(nullcheck==0);
+	}	
 	else
 	{
 		printf("\nwrong choice");
 	}
 }
-void pointerarray(char (*name)[50],int row,char *sname)
+int arrayofpointer(char **array,int row,char *sname)
 {
-        if(name==NULL&&sname==NULL)
-        {
-         printf("\nsystem error occured ");
-         main();
-        }
+	if(array==NULL&&sname==NULL)
+	{
+		printf("\nsystem error occured ");
+		return 0;
+	}
+	int count,test=0;
+	for(count=0;count<row;count++)
+	{
+		if(strcmp(array[count],sname)==0)
+		{
+			test=1;
+			printf("\n%s found at position %d\n",sname,count+1);
+		}
+	}
+	if(test!=1)
+		printf("\nstring is not present in the array");
+	return 1;
+}
+int pointerarray(char (*name)[50],int row,char *sname)
+{
+	if(name==NULL&&sname==NULL)
+	{
+		printf("\nsystem error occured ");
+		return 0;
+	}
 	int count,test=0;
 	for(count=0;count<row;count++)
 	{
@@ -72,4 +92,5 @@ void pointerarray(char (*name)[50],int row,char *sname)
 	}
 	if(test!=1)
 		printf("\nstring %s is not present in the array",sname);
+	return 1;
 }
