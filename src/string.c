@@ -19,7 +19,7 @@
  *	lowercase letters should be allowed for the menu choices. 
  *
  */
-#include"../inc/header.h"
+#include"../inc/string.h"
 int vowels(char *);
 int consonants(char *);
 int upper(char *);
