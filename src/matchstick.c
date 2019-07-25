@@ -5,7 +5,7 @@
  *	loses the game.
  */
 
-#include"../inc/header.h"
+#include"../inc/mstitck.h"
 int matchsti(int *);
 int main()
 {
