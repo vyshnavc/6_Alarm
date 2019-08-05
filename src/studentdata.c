@@ -95,11 +95,10 @@ void main()
 			continue;
 		}
 		sleep(1);
-		//break;
 	}
 	fclose(fp);
 }
-int file(student **ptr)
+int file(student **ptr)       /*adding file data's into program*/
 {    
 	if(ptr==NULL)
 	{
@@ -120,13 +119,9 @@ int file(student **ptr)
 		}
 		free(temp);
 	}
-	else
-	{
-		fp=fopen("memory","w");
-	}
 	return 1;
 }
-int database(student **ptr)
+int database(student **ptr)                     /*fucton is used to add student details*/
 {       
 	if(ptr==NULL)
 	{
@@ -134,12 +129,11 @@ int database(student **ptr)
 		return 0;
 	}
 	int r;
-	//student *last;
 	student *temp=(student*)malloc(sizeof(student));
         do
         {    
    	printf("\nenter student ID : ");
-	r=scanf("%d",&temp->studentID);
+	r=scanf("%d",&temp->studentID);                        
 	if(r!=1)
 	{
 		printf("\nwrong input try again..");
@@ -192,10 +186,12 @@ int delete(student **ptr)
 	if(test==1)
 	{
 		do{test=name(ptr);}while(test==0);
+                printf("\nstudent details deleted.....");
 	}
 	else if(test==2)
 	{
 		do{test=ID(ptr);}while(test==0);
+                printf("\nstudent details deleted.....");
 	}
 	else
 	{
@@ -206,7 +202,6 @@ int delete(student **ptr)
 }
 int modify(student **ptr)
 {
-         
 	if(ptr==NULL)
 	{
 		printf("\nsystem error occured");
@@ -216,7 +211,7 @@ int modify(student **ptr)
 	do
         {
         printf("\nenter\n1)name\n2)ID\noption : ");
-	check=scanf("%d",&test)==0;
+	check=scanf("%d",&test);
         if(check==0)
 	{
                 printf("\nwrong choice....");
@@ -226,11 +221,13 @@ int modify(student **ptr)
         }while(check==0);
 	if(test==1)
 	{
-		do{test=moname(ptr);}while(test==0);
+		do{test=moname(ptr);}while(test==0);               
+                printf("\nstudent details updated.....");
 	}
 	else if(test==2)
 	{
 		do{test=moID(ptr);}while(test==0);
+                printf("\nstudent details updated....");
 	}
 	else
 	{
@@ -239,7 +236,7 @@ int modify(student **ptr)
 	}
 	return 1;
 }
-int linklist(student *temp,student **ptr)
+int linklist(student *temp,student **ptr)                        /*funtion will make datas in linklist format*/
 {
 	if(temp==NULL&&ptr==NULL)
 	{
@@ -263,7 +260,7 @@ int linklist(student *temp,student **ptr)
 	}
 	return 1;
 }
-int name(student **ptr)
+int name(student **ptr)                             
 { 
 	if(ptr==NULL)
 	{
@@ -277,7 +274,7 @@ int name(student **ptr)
 	scanf(" %[^\n]s",sname);
 	while(test!=0)
 	{
-		if(strcmp(test->name,sname)==0)
+		if(strcmp(test->name,sname)==0)  /* to check repeatation of given name */
 		{
 			check++;
 		}
@@ -324,8 +321,18 @@ int ID(student **ptr)
 	}
 	int check=0,s_id;
 	student *test=*ptr,*last;
-	printf("\nenter the student id: ");
-	scanf("%d",&s_id);
+	do
+        {
+        printf("\nenter the student id: ");
+	check=scanf("%d",&s_id);
+        if(check==0)
+        {
+                printf("\nwrong choice....");
+                scanf("%*s");
+
+        }
+        }while(check==0);
+        check=0;
 	while(test!=0)
 	{
 		if(test->studentID==s_id)
@@ -350,7 +357,7 @@ int ID(student **ptr)
 		printf("\nstudent ID not found......");
 	return 1;
 }
-int moname(student **ptr)
+int moname(student **ptr)         
 {
 	if(ptr==NULL)
 	{
@@ -373,7 +380,6 @@ int moname(student **ptr)
 	if(check==1)
 	{
 		test=*ptr;
-//		system("clear");
 		while(test!=0)
 		{
 			if(strcmp(test->name,sname)==0)
@@ -483,7 +489,7 @@ int filesave(student *ptr)
 		return 0;
 	}
 	char c;
-	printf("\ndo you want to save the date for future reference..y/n : ");
+	printf("\ndo you want to save the data for future reference..y/n : ");
 	scanf(" %c",&c);
 	while(ptr!=0)
 	{
