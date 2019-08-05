@@ -21,16 +21,13 @@ int alternative(char *);
 int invert(char *);
 int main()
 {
-	int nullcheck;
+	int nullcheck,c;
 	printf("==================count string=========================");
-	char str[max_len],c;
+	char str[max_len];
+    
 	do
 	{
 		printf("\n=======================================================\n");
-		printf("A)Captialize case\nB)Alternative case\nC)Invert case\nX)Exit the program\n");
-		printf("=======================================================");
-		printf("\nenter a choicee :\n ");
-		scanf(" %c",&c);
 		printf("\nenter a string :\n");
 		scanf(" %[^\n]s",str);
 		printf("\n======================================================");
@@ -46,28 +43,33 @@ int main()
 		}
 		printf("%s\n",str);
 		printf("\n========================================================\n");
-		switch(c)
+                printf("1)Captialize case\n2)Alternative case\n3)Invert case\n4)Exit the program\n");
+                printf("=======================================================");
+                printf("\nenter a choicee :\n ");
+                scanf("%d",&c);
+                printf("=======================================================\n");
+        	switch(c)
 		{
-			case 'A':
+			case 1:
 				do
 				{
 					nullcheck=capitalize(str);
 				}while(nullcheck==0);
 				break;
-			case 'B':
+			case 2:
 				do
 				{			
 					nullcheck=alternative(str);
 				}while(nullcheck==0);
 				break;
-			case 'C':
+			case 3:
 				do
 				{
 					nullcheck=invert(str);
 
 				}while(nullcheck==0);
 				break;
-			case 'X':
+			case 4:
 				return 0;
 			default:;
 		}
