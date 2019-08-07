@@ -489,13 +489,24 @@ int filesave(student *ptr)
 		return 0;
 	}
 	char c;
+        while(1)
+        {
 	printf("\ndo you want to save the data for future reference..y/n : ");
 	scanf(" %c",&c);
-	while(ptr!=0)
+	if(c=='y'||c=='Y')
 	{
-		fprintf(fp,"%d %s %d %s %s %s\n",ptr->studentID,ptr->name,ptr->age,ptr->sex,ptr->class,ptr->address);
-		ptr=ptr->next;
+		while(ptr!=0)
+		{
+			fprintf(fp,"%d %s %d %s %s %s\n",ptr->studentID,ptr->name,ptr->age,ptr->sex,ptr->class,ptr->address);
+			ptr=ptr->next;
+		}
+		printf("\nstudent details are stored in file..\n");
+                break;
 	}
-	printf("\nstudent details are stored in file..\n");
+	else if(c=='n'||c=='N')
+		return 1;
+	else
+		printf("\nwrong input");
+        }
 	return 1;
 }
