@@ -469,7 +469,7 @@ int print(student *ptr)
 {
 	if(ptr==NULL)
 	{
-		printf("\nsystem error occured..");
+		printf("\nsystem error occured.");
 		return 0;
 	}
 	while(ptr!=0)
@@ -478,35 +478,38 @@ int print(student *ptr)
 		printf("\nID:%d\nNAME:%s\nAGE:%d\nADDRESS:%s\nCLASS:%s\nSEX:%s\n",ptr->studentID,ptr->name,ptr->age,ptr->address,ptr->class,ptr->sex);
 		ptr=ptr->next;
 	}
+
 	return 1;
 }
 int filesave(student *ptr)
 {
-        fp=fopen("memory","w");
+	
 	if(ptr==NULL)
 	{
 		printf("\nsystem error occured ");
 		return 0;
 	}
 	char c;
-        while(1)
-        {
-	printf("\ndo you want to save the data for future reference..y/n : ");
-	scanf(" %c",&c);
-	if(c=='y'||c=='Y')
+	while(1)
 	{
-		while(ptr!=0)
+		printf("\ndo you want to save the data for future reference..y/n : ");
+		scanf(" %c",&c);
+	        fp=fopen("memory","w");
+		if(c=='y'||c=='Y')
 		{
-			fprintf(fp,"%d %s %d %s %s %s\n",ptr->studentID,ptr->name,ptr->age,ptr->sex,ptr->class,ptr->address);
-			ptr=ptr->next;
+			while(ptr!=0)
+			{
+				fprintf(fp,"%d %s %d %s %s %s\n",ptr->studentID,ptr->name,ptr->age,ptr->sex,ptr->class,ptr->address);
+				ptr=ptr->next;
+			}
+			printf("\nstudent details are stored in file..\n");
+			break;
 		}
-		printf("\nstudent details are stored in file..\n");
-                break;
+		else if(c=='n'||c=='N')
+			return 1;
+		else
+			printf("\nwrong input");
 	}
-	else if(c=='n'||c=='N')
-		return 1;
-	else
-		printf("\nwrong input");
-        }
+	sleep(2);
 	return 1;
 }
