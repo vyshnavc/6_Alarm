@@ -28,7 +28,12 @@ int modify(employee **);
 int datachange(employee **);
 int moname(employee **);
 int moID(employee **);
-int r;
+int countfun(employee *);
+int sort(employee **);
+int sortname(employee **);
+int sortID(employee **);
+//int nodeexchange(employee **,employee *);
+int r,count;
 int main()
 {
 	employee *hptr=0;
@@ -74,10 +79,15 @@ int main()
                 }
 		else if(c=='e'||c=='E')
 		{
+
+			do
+			{
+                        count=countfun(hptr);	
+			}while(count==0);	
 			do
 			{	
+                        r=sort(&hptr);
 			}while(r==0);	
-
 		}		
 		else if(c=='f'||c=='F')
 		{
@@ -555,9 +565,9 @@ int filesave(employee *ptr)
         {
 	printf("\ndo you want to save the data for future reference..y/n : ");
 	scanf(" %c",&c);
-	fp=fopen("employee","w");
 	if(c=='y'||c=='Y')
 	{
+	        fp=fopen("employee","w");
 		while(ptr!=0)
 		{
 			fprintf(fp,"%d %s %d %s %s %s %s %s\n",ptr->employeeID,ptr->name,ptr->age,ptr->sex,ptr->branch,ptr->desig,ptr->doj,ptr->address);
@@ -566,16 +576,190 @@ int filesave(employee *ptr)
 		printf("\nstudent details are stored in file..\n");
                 break;
 	}
-	else if(c=='y'||c=='n')
+	else if(c=='n'||c=='n')
 		return 1;
 	else 
 		printf("\nwrong input");
 	}
-        return 1;
+	return 1;
 }
+int countfun(employee *ptr)
+{
+	if(ptr==NULL)
+	{
+		printf("\nsystem error occured");
+		return 0;
+	}
+	while(ptr!=0)
+	{
+		count++;
+		ptr=ptr->next;
+	}
+return count;
+}
+int sort(employee **ptr)
+{
+	if(ptr==NULL)
+        {
+                printf("\nsystem error occured");
+                return 0;
+        }
+        int test,check;
+        do
+        {
+        printf("\nusing\n1)name\n2)ID\noption : ");
+        check=scanf("%d",&test);
+        if(check==0)
+        {
+                printf("\nwrong chioce...");
+                scanf("%*s");
+        }
+        }while(check==0);
 
-
-
+        if(test==1)
+        {
+               do{test=sortname(ptr);}while(test==0);
+        }
+        else if(test==2)
+        {
+                do{test=sortID(ptr);}while(test==0);
+        }
+        else
+        {
+                printf("\nwrong choice...\n");
+		sort(ptr);
+	}
+	return 1;
+}
+int sortID(employee **ptr)
+{
+	if(ptr==NULL)
+	{
+		printf("\nsystem error occured");
+		return 0;
+	}
+	int i,j,check;
+	employee *test,*temp;
+	for(i=0;i<count;i++)
+	{
+		test=*ptr;
+		for(j=0;j<count-i-1;j++)
+		{
+			if(test->employeeID>test->next->employeeID)
+			{
+                              /*  do
+                                {
+                                 check=nodeexchange(ptr,test);
+                                }while(check==0);*/
+				temp=test->prev;
+				if(test->prev!=0)
+					test->prev->next=test->next;
+				test->next->prev=temp;
+				test->prev=test->next;
+				temp=test->next->next;
+				test->next->next=test;
+				test->next=temp;
+				if(*ptr==test)
+					*ptr=test->prev;
+				test=test->prev;
+			}
+			test=test->next;
+		}
+	}
+}
+int sortname(employee **ptr)
+{
+	if(ptr==NULL)
+	{
+		printf("\nsystem error occured");
+		return 0;
+	}
+	int i,j,check,compare;
+	employee *test,*temp;
+	for(i=0;i<count;i++)
+	{
+		test=*ptr;
+		for(j=0;j<count-i-1;j++)
+		{
+			compare=strcmp(test->name,test->next->name);
+                        printf("%d",compare);
+			if(compare==0)
+			{
+				if(test->employeeID>test->next->employeeID)
+				{
+					temp=test->prev;
+					if(test->prev!=0)
+						test->prev->next=test->next;
+					test->next->prev=temp;
+					test->prev=test->next;
+					temp=test->next->next;
+					test->next->next=test;
+					test->next=temp;
+					if(*ptr==test)
+						*ptr=test->prev;
+					test=test->prev;
+					/*		do
+							{	
+							check=nodeexchange(ptr,test);
+							}while(check==0);*/
+				}
+			}
+			else if(compare>0)
+			{
+				temp=test->prev;
+				if(test->prev!=0)
+					test->prev->next=test->next;
+				test->next->prev=temp;
+				test->prev=test->next;
+				temp=test->next->next;
+				test->next->next=test;
+				test->next=temp;
+				if(*ptr==test)
+					*ptr=test->prev;
+				test=test->prev;
+				/*	do
+					{
+					check=nodeexchange(ptr,test);
+					}while(check==0);*/
+			}
+			else;
+			/*        temp=test->prev;
+				  if(test->prev!=0)
+				  test->prev->next=test->next;
+				  test->next->prev=temp;
+				  test->prev=test->next;
+				  temp=test->next->next;
+				  test->next->next=test;
+				  test->next=temp;
+				  if(*ptr==test)
+			 *ptr=test->prev;
+			 test=test->prev;*/
+			test=test->next;
+		}
+	}
+}
+/*
+int nodeexchange(employee **ptr,employee *test)
+{
+	if(ptr==NULL&&test==NULL)
+	{
+		printf("\nsystem error occured");
+		return 0;
+	}
+	employee *temp;
+	temp=test->prev;
+	if(test->prev!=0)
+		test->prev->next=test->next;
+	test->next->prev=temp;
+	test->prev=test->next;
+	temp=test->next->next;
+	test->next->next=test;
+	test->next=temp;
+	if(*ptr==test)
+		*ptr=test->prev;
+	test=test->prev;
+}
+*/
 
 
 
