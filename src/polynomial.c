@@ -39,14 +39,6 @@ void main()
 			scanf("%*s");
 			printf("\nwrong input");
 		} 
-      /*		if(num2>num1)
-		{
-			printf("\n\nfor multiplication second function sould be less than or equal to first function");
-			printf("\n\ndo you want to change the function y/n:");
-			scanf(" %c",&choice);
-			if(choice=='y'||'Y')
-				check=0;
-		}*/
 	}while(check==0);
 
 	p2=malloc(sizeof(int)*num2);
@@ -61,7 +53,6 @@ void main()
 	{
 		test++;
 		printf("\n");
-		//printf("%d",test);
 		printf("\nA)addition\nB)subtraction\nC)multiplication\nD)do more operation on result\nX)exit\nenter a choice : ");
 		scanf(" %c",&choice);
 		switch(choice)
