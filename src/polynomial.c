@@ -140,6 +140,9 @@ void main()
 		}
 
 	} 
+free(p);
+free(p2);
+free(p3);
 }
 
 int input(int *p,int size)
@@ -219,6 +222,7 @@ int multiplication(int *p,int *p2,int *p3,int num1,int num2,int size)
 		for(count=0;count<size;count++)
 			p3[count+i]=p3[count+i]+temp[count];
 	}
+        free(temp);
 	return 1;
 }
 int display(int *p,int size)
