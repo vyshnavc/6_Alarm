@@ -138,7 +138,7 @@ int file(cricket **ptr,const char *filename)       /*adding file data's into pro
 		printf("\nsystem error occured....");
 		return 0;
 	}   
-	fp=fopen(filename,"r");
+	fp=fopen(filename,"a+");
 	fseek(fp,-2,2);
 	fsize=ftell(fp);
 	rewind(fp);
