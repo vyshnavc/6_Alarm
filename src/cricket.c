@@ -104,6 +104,7 @@ void main()
 			}
 			else if(c=='E'||c=='e')
 			{
+	                       fclose(fp);
 				break;
 			}
 			else if(c=='s'||c=='S')
@@ -154,7 +155,6 @@ int file(cricket **ptr,const char *filename)       /*adding file data's into pro
 			temp=(cricket*)malloc(sizeof(cricket));
                         }
 	}
-	fclose(fp);
 	return 1;
 }
 int database(cricket **ptr)                     /*fucton is used to add player details*/
@@ -544,17 +544,26 @@ int datachange(cricket **ptr)
 }
 int print(cricket *temp)
 {
-	if(temp==NULL)
-	{
-		printf("\nsystem error occured..");
-		return 0;
-	}
+        int filelength;
+        fseek(fp,2,-2);
+        filelength=ftell(fp);
+        if(filelength!=0)
+        {
+        system("clear");
+        if(temp==NULL)
+        {
+         printf("\nsystem error occured..");
+         return 0;
+        }
 	while(temp!=0)
 	{         
 		printf("\n===========================================");
                 printf("\nname     : %s\nJersey no: %d\nRuns     : %d\nCatch    : %d\nWickets  : %d\nSix      : %d\nFour     : %d\n\n",temp->name,temp->jersey,temp->run,temp->catch,temp->wickets,temp->six,temp->four);
                     temp=temp->next;
 	}
+        }
+        else
+         printf("\ndatabase in empty...forgot to save?");
 	return 1;
 }
 int filesave(cricket *temp,char *filename)
