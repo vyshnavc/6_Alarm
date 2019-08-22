@@ -7,7 +7,6 @@ struct node
 }; 
 struct node* insert(struct node*, char *); 
 struct node *newNode(char *); 
-void inorder(struct node *); 
 struct node* search(struct node* , char *); 
 int main() 
 { 
@@ -31,7 +30,6 @@ int main()
 		printf("\ndo you want to add new name y/n? : ");
 		scanf(" %c",&option);
 	}while(option=='y'||option=='Y');
-        //inorder(root);
 	do
 	{
 		printf("\n==========BINARY SEARCH TREE==========");
@@ -64,15 +62,6 @@ struct node *newNode(char *name)
 	strcpy(temp->name,name); 
 	temp->left = temp->right = NULL; 
 	return temp; 
-} 
-void inorder(struct node *root) 
-{ 
-	if (root != NULL) 
-	{ 
-		inorder(root->left); 
-		printf("%s \n", root->name); 
-		inorder(root->right); 
-	} 
 } 
 struct node* search(struct node* root,char *name) 
 { 
