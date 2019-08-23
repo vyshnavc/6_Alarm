@@ -32,27 +32,32 @@ void main()
 	printf("\nenter a name to search :\n");
 	scanf("%s",sname);
 	printf("\n===============================================");
-	printf("\nsearching method......\n");
+        while(1)
+        {	
+        printf("\nsearching method......\n");
 	printf("a)array of pointer\nb)pointer to an array\nenter a option : ");
 	scanf(" %c",&option);
-	if(option=='a'||'A')
+	if(option=='a'||option=='A')
 	{ 
 		do
 		{ 	
 			nullcheck=arrayofpointer(array,row,sname);
 		}while(nullcheck==0);	
-	}
-	else if(option=='b'||'B')
+                break;	
+        }
+	else if(option=='b'||option=='B')
 	{
 		do
 		{
 			nullcheck=pointerarray(name,row,sname);
 		}while(nullcheck==0);
-	}	
+	        break;
+        }	
 	else
 	{
 		printf("\nwrong choice");
 	}
+        }
 }
 int arrayofpointer(char **array,int row,char *sname)
 {
