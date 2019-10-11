@@ -2,29 +2,30 @@
  * and application should compare it with system time and print the notification message on the screen. (Kind of an alarm). Make it as interactive as possible.
  */
 #include "../inc/6_Alarm.h"
+
 #define max_len 100
 #define max_tim 10
+
 typedef struct alarm
 {
 	char notifi[max_len];
 	char time[max_tim];
-}al;
+}al_t;
+
 void main()
 {
-	al s[10];
+	al_t s[10];
 	char a[11],string[100],stime[20],c,x;
 	int i,j,k,fd[2],test,hour,min,sec;
-	if(pipe(fd)==-1)
-	{
+
+	if(pipe(fd)==-1){                   /*pipe created for relative process communication*/
 		perror("pipe");
 		return;
 	}
 	printf("==================ALARM===================\n");    
-	if(fork()==0)
-	{
+	if(fork()==0){                                             /*child process created*/
 		printf("%d",getpid());
-		for(i=0;i<10;i++)
-		{
+		for(i=0;i<10;i++){
 			read(fd[0],s[i].notifi,100);
 			read(fd[0],s[i].time,10);
 			read(fd[0],&x,1);
@@ -32,15 +33,12 @@ void main()
 				break;
 		}
 		k=i;
-		while(k>-1)
-		{
+		while(k>-1){
 			time_t t=time(NULL);
-			struct tm tm=*localtime(&t);
+			struct tm tm=*localtime(&t);       /*inbuild structure to get system time*/
 			sprintf(a,"%02d:%02d:%02d",tm.tm_hour,tm.tm_min,tm.tm_sec);
-			for(j=0;j<=i;j++)
-			{
-				if(strcmp(a,s[j].time)==0)
-				{
+			for(j=0;j<=i;j++){
+				if(strcmp(a,s[j].time)==0){                              /*compare user time with system time*/
 					printf("\n================NOTIFICATION=====================\n");
 					printf("%s   %s",s[j].notifi,s[j].time);
 					printf("\n==================================================\n");
@@ -53,25 +51,23 @@ void main()
 		}
 
 
-	}
-	else
-	{
+	}else
+        {
 
-		do
-		{                      
+		do{                      
 			printf("enter the notification : ");
 			scanf(" %[^\n]s",string);
 			write(fd[1],string,strlen(string)+1);
 		       l:printf("\nenter the notification time in railway time  format 00H 00m 00s:-");
-			test=scanf("%d%d%d",&hour,&min,&sec);
-                        if(test!=3)
-                        {
+			test=scanf("%d%d%d",&hour,&min,&sec);         /*scanf return value only if user enter integer*/
+                        if(test!=3){                                  /*to check user entered correct format*/
                          printf("\nerror check the format\n");
 			 scanf("%*s");
-                         goto l;
+                         goto l;                                   
                         }
-                        sprintf(stime,"%02d:%02d:%02d",hour,min,sec); 
-                        write(fd[1],stime,strlen(stime)+1);
+
+                        sprintf(stime,"%02d:%02d:%02d",hour,min,sec); /*convert hr min sec into string */
+                        write(fd[1],stime,strlen(stime)+1);           /*writing string into the pipe*/
 		        printf("\nalarm set......");
 			printf("\ndo you want to add new alarm y/n?");
 			scanf(" %c",&c);
