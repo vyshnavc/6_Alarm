@@ -12,25 +12,26 @@ typedef struct cricket
 		int six;
 		int four;
         struct cricket *next;
-}cricket;
+}cricket_t;
 FILE *fp;
-int file(cricket **,const char *);
-int filesave(cricket *,char *);
-int delete(cricket **);
-int linklist(cricket *,cricket **);
-int database(cricket **);
-int name(cricket **);
-int ID(cricket **);
-int print(cricket *);
-int modify(cricket **);
-int datachange(cricket **);
-int moname(cricket **);
-int moID(cricket **);
+#define Fsize 20
+int file(cricket_t **,const char *);
+int filesave(cricket_t *,char *);
+int delete(cricket_t **);
+int linklist(cricket_t *,cricket_t **);
+int database(cricket_t **);
+int name(cricket_t **);
+int ID(cricket_t **);
+int print(cricket_t *);
+int modify(cricket_t **);
+int datachange(cricket_t **);
+int moname(cricket_t **);
+int moID(cricket_t **);
 int r,count=0;
 void main()
 {
-	cricket *hptr1=0,*hptr2=0,**team;
-	char c,filename[20];
+	cricket_t *hptr1=0,*hptr2=0,**team;
+	char c,filename[Fsize];
 	int option;
 	do
 	{
@@ -131,7 +132,7 @@ void main()
 	fclose(fp);
 }
 
-int file(cricket **ptr,const char *filename)       /*adding file data's into program*/
+int file(cricket_t **ptr,const char *filename)       /*adding file data's into program*/
 {   
 	int i,j,fsize;
 	if(ptr==NULL&&filename==NULL)
@@ -145,19 +146,19 @@ int file(cricket **ptr,const char *filename)       /*adding file data's into pro
 	rewind(fp);
         if(fsize!=0)
 	{
-		cricket *temp=(cricket*)malloc(sizeof(cricket));
+		cricket_t *temp=(cricket_t*)malloc(sizeof(cricket_t));
 			while(fscanf(fp,"%s%d%d%d%d%d%d",temp->name,&temp->jersey,&temp->run,&temp->catch,&temp->wickets,&temp->six,&temp->four)!=EOF)
 			{
 			do
 			{
 				r=linklist(temp,ptr);
 			}while(r==0);      
-			temp=(cricket*)malloc(sizeof(cricket));
+			temp=(cricket_t*)malloc(sizeof(cricket_t));
                         }
 	}
 	return 1;
 }
-int database(cricket **ptr)                     /*fucton is used to add player details*/
+int database(cricket_t **ptr)                     /*fucton is used to add player details*/
 {       
 	if(ptr==NULL)
 	{
@@ -165,8 +166,8 @@ int database(cricket **ptr)                     /*fucton is used to add player d
 		return 0;
 	}
 	int r;
-	cricket *temp;	
-		temp=(cricket*)malloc(sizeof(cricket));  
+	cricket_t *temp;	
+		temp=(cricket_t*)malloc(sizeof(cricket_t));  
 		printf("\nenter player name : ");
 		scanf(" %[^\n]s",temp->name); 
 		do
@@ -237,7 +238,7 @@ int database(cricket **ptr)                     /*fucton is used to add player d
 	return 1;
 
 }
-int delete(cricket **ptr)
+int delete(cricket_t **ptr)
 {
 	if(ptr==NULL)
 	{
@@ -273,7 +274,7 @@ int delete(cricket **ptr)
 	}
 	return 1;
 }
-int modify(cricket **ptr)
+int modify(cricket_t **ptr)
 {
 	if(ptr==NULL)
 	{
@@ -309,14 +310,14 @@ int modify(cricket **ptr)
 	}
 	return 1;
 }
-int linklist(cricket *temp,cricket **ptr)                        //funtion will make datas in linklist format
+int linklist(cricket_t *temp,cricket_t **ptr)                        //funtion will make datas in linklist format
 {
 	if(temp==NULL&&ptr==NULL)
 	{
 		printf("\nsystem error occured...");
 		return 0;
 	}
-	cricket *last;
+	cricket_t *last;
 	temp->next=0; 
 	if(*ptr==0)
 	{
@@ -334,7 +335,7 @@ int linklist(cricket *temp,cricket **ptr)                        //funtion will 
 	}
 	return 1;
 }
-int name(cricket **ptr)                             
+int name(cricket_t **ptr)                             
 { 
 	if(ptr==NULL)
 	{
@@ -343,7 +344,7 @@ int name(cricket **ptr)
 	}
 	int check=0,j;
 	char sname[50];
-	cricket *test=*ptr,*last;
+	cricket_t *test=*ptr,*last;
 	printf("\nenter player name: ");
 	scanf(" %[^\n]s",sname);
 	while(test!=0)
@@ -386,7 +387,7 @@ int name(cricket **ptr)
 		printf("\nname not found......");
 	return 1;
 }
-int ID(cricket **ptr)
+int ID(cricket_t **ptr)
 {
 	if(ptr==NULL)
 	{
@@ -394,7 +395,7 @@ int ID(cricket **ptr)
 		return 0;
 	}
 	int check=0,s_id;
-	cricket *test=*ptr,*last;
+	cricket_t *test=*ptr,*last;
 	do
         {
         printf("\nenter player jersey num : ");
@@ -431,7 +432,7 @@ int ID(cricket **ptr)
 		printf("\njersey number not found......");
 	return 1;
 }
-int moname(cricket **ptr)         
+int moname(cricket_t **ptr)         
 {
 	if(ptr==NULL)
 	{
@@ -440,7 +441,7 @@ int moname(cricket **ptr)
 	}
 	int check=0;
 	char sname[50];
-	cricket *test=*ptr;
+	cricket_t *test=*ptr;
 	printf("\nenter player  name: ");
 	scanf(" %[^\n]s",sname);
 	while(test!=0)
@@ -474,7 +475,7 @@ int moname(cricket **ptr)
 	printf("\nplayer name not found......");
 return 1;
 }
-int moID(cricket **ptr)
+int moID(cricket_t **ptr)
 {
 	if(ptr==NULL)
 	{
@@ -482,7 +483,7 @@ int moID(cricket **ptr)
 		return 0;
 	}
 	int check=0,s_id;
-	cricket *test=*ptr;
+	cricket_t *test=*ptr;
        do
        {
 	printf("\nenter jersey number : ");
@@ -508,11 +509,11 @@ int moID(cricket **ptr)
 		printf("\njersey num not found......");
 return 1;
 }
-int datachange(cricket **ptr)
+int datachange(cricket_t **ptr)
 {
 	system("clear");
 	int check;
-	cricket *test=*ptr;
+	cricket_t *test=*ptr;
 	printf("\n1)jersey:%d\n2)NAME:%s\n3)Run:%d\n4)Catch:%d\n5)Wickets:%d\n6)Six:%d\n7)Four:%d\nenter a option : ",test->jersey,test->name,test->run,test->catch,test->wickets,test->six,test->four);
 	scanf("%d",&check);
 	switch(check)
@@ -542,7 +543,7 @@ int datachange(cricket **ptr)
 			datachange(ptr);
 	}
 }
-int print(cricket *temp)
+int print(cricket_t *temp)
 {
         int filelength;
         fseek(fp,2,-2);
@@ -566,7 +567,7 @@ int print(cricket *temp)
          printf("\ndatabase in empty...forgot to save?");
 	return 1;
 }
-int filesave(cricket *temp,char *filename)
+int filesave(cricket_t *temp,char *filename)
 {
 int j;
         fp=fopen(filename,"w");
