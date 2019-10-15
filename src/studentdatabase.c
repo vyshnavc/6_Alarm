@@ -5,16 +5,20 @@
 */
 
 #include"../inc/studentdatabase.h"
+
+#define size 100
+
 typedef struct student
 {
 	int studentID;
-	char name[100];
-	char address[100];
-	char class[100];
+	char name[size];
+	char address[size];
+	char class[size];
 	int age;
-	char sex[100];
+	char sex[size];
 	struct student *next;
 }student;
+
 FILE *fp;
 int file(student **);
 int filesave(student *);
@@ -28,7 +32,9 @@ int modify(student **);
 int datachange(student **);
 int moname(student **);
 int moID(student **);
+
 int r;
+
 void main()
 {
 	student *hptr=0;

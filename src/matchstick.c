@@ -6,11 +6,14 @@
  */
 
 #include"../inc/matchstick.h"
+
 int matchsti(int *);
+
 int main()
 {
 	int matchstick=21;
 	char c;
+
         while(matchstick>=1)
 	{
 		system("clear");                               
@@ -28,13 +31,14 @@ int main()
 			break;
 		}
 		printf("remaining matchstick=%d\n",matchstick);
-		printf("\n---------------------------------------\n");
+ 		printf("\n---------------------------------------\n");
 		do
 		{
 			matchstick=matchsti(&matchstick);
 		}while(matchstick==0);
 	}
 }
+
 int matchsti(int *match)
 {
 	int computer,user,r;

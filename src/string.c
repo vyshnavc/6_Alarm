@@ -19,20 +19,24 @@
  *	lowercase letters should be allowed for the menu choices. 
  *
  */
+
 #include"../inc/string.h"
+
 int vowels(char *);
 int consonants(char *);
 int upper(char *);
 int lower(char *);
 int newstring(char *);
 void menu(void);
-//#define max_len 100
+
+#define max_len 100
+
 int g_count,g_i;
 
 void main()
 {
 	//	printf(__TIME__);
-	char string[100],c;
+	char string[max_len],c;
 	int checknull;
 
 	system("clear");
@@ -65,7 +69,8 @@ void main()
 				do
 				{
 					checknull=upper(string);
-				}while(checknull==0);				 break;
+				}while(checknull==0);			
+                       	        break;
 			case 'D': 
 				do
 				{
@@ -89,10 +94,12 @@ void main()
 		sleep(2);
 	}while(1);
 }
+
 void menu(void)
 {
 	printf("\nA) Count the number of vowels in the string\nB) Count the number of consonants in the string\nC) Convert the string to uppercase\nD) Convert the string to lowercase\nE) Display the current string\nI) Enter another string\nX) Exit the program\n");
 }
+
 int vowels(char *p)
 {
 	if(p==NULL)
@@ -163,6 +170,7 @@ int lower(char *p)
 	}
 return 1;
 }
+
 int newstring(char *s)
 {
 	if(s==NULL)
@@ -170,7 +178,7 @@ int newstring(char *s)
 		printf("\nsystem error occured");
 		return 0;
 	}
-	bzero(s,100);
+	bzero(s,max_len);
 	printf("\nenter new string :\n");
 	scanf(" %[^\n]s",s);
 return 1;

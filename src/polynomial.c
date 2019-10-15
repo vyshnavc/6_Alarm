@@ -1,19 +1,23 @@
 /*Write a program for polynomial addition, subtraction, and multiplication. Use dynamic memory allocation to take in the polynomial enetred by the user.*/
 
 #include"../inc/polynomial.h"
+
 int display(int *,int);
 int addition(int *,int *,int *,int);
 int subtraction(int *,int *,int *,int);
 int multiplication(int *,int *,int *,int,int,int);
 int input(int *,int);
 int my_copy(int * ,int *,int);
+
 void main()
 {
 	printf("\n==========polynomial addition===========");
 	printf("\n\nplease follow the instruction {5,0,-3,2} = 2x^3-3x^2+5");
+
 	int *p,*p2,*p3,i,size,check,num1,num2;
 	char choice;
 	static int test;
+
 	do
 	{
 		printf("\n\nenter total number for 1st polynomial function : ");
@@ -26,6 +30,7 @@ void main()
 	}while(check==0);
 
 	p=malloc(sizeof(int)*num1);
+
 	do
 	{
 		check=input(p,num1);
@@ -42,11 +47,13 @@ void main()
 	}while(check==0);
 
 	p2=malloc(sizeof(int)*num2);
+
 	do
 	{
 		check=input(p2,num2);
 	}while(check==0);
 	size=num1>num2?num1:num2;
+
 	p3=malloc(sizeof(int)*size);        
 
 	while(1)
@@ -131,9 +138,11 @@ void main()
 		}
 
 	} 
+
 free(p);
 free(p2);
 free(p3);
+
 }
 
 int input(int *p,int size)
@@ -143,7 +152,9 @@ int input(int *p,int size)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int i,check;
+
 	for(i=0;i<size;i++)
 	{
 		printf("\n\nenter number : ");
@@ -159,6 +170,7 @@ int input(int *p,int size)
 		display(p,i);
 	}
 }
+
 int my_copy(int *p,int *p3,int size)
 {
 	if(p==NULL&&p3==NULL)
@@ -169,6 +181,7 @@ int my_copy(int *p,int *p3,int size)
 	for(int i=0;i<size;i++)                                                                            
 		p[i]=p3[i];
 }
+
 int addition(int *p,int *p2,int *p3,int size)
 {
 	if(p==NULL&&p2==NULL&&p3==NULL)
@@ -176,7 +189,9 @@ int addition(int *p,int *p2,int *p3,int size)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int count;
+
 	for(count=0;count<size;count++)
 	{
 		p3[count]=p[count]+p2[count];
@@ -189,12 +204,16 @@ int subtraction(int *p,int *p2,int *p3,int size)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int count;
+
 	for(count=0;count<size;count++)
 	{
 		p3[count]=p[count]-p2[count];
 	}
+
 }
+
 int multiplication(int *p,int *p2,int *p3,int num1,int num2,int size)
 {
 	if(p==NULL&&p2==NULL&&p3==NULL)
@@ -202,9 +221,12 @@ int multiplication(int *p,int *p2,int *p3,int num1,int num2,int size)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int count,i,j;
 	int *temp=malloc(sizeof(int)*num1);
+
 	free(p3);
+
 	p3=calloc(size,sizeof(int));
 	for(i=0;i<num2;i++)
 	{
@@ -223,7 +245,9 @@ int display(int *p,int size)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int count;
+
 	for(count=size;count>=0;count--)
 	{
 		if(p[count]==0)

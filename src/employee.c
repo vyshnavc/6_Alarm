@@ -2,6 +2,7 @@
  *   Database should have members like Employee ID, age, sex, name, address, branch, designation, date of joining etc. There should be options to add, delete, modify, search, sort,print database. */
 
 #include"../inc/employee.h"
+
 typedef struct employee
 {
 	int employeeID;
@@ -15,6 +16,7 @@ typedef struct employee
 	struct employee *prev;
 	struct employee *next;
 }employee;
+
 FILE *fp;
 int file(employee **);
 int filesave(employee *);
@@ -33,79 +35,65 @@ int sort(employee **);
 int sortname(employee **);
 int sortID(employee **);
 int nodeexchange(employee **,employee *);
+
 int r,count;
+
 int main()
 {
 	employee *hptr=0;
 	char c;
-	do
-	{
+
+	do{
 		r=file(&hptr);
 	}while(r==0);
-	while(1)
-	{       
+
+	while(1){       
 		printf("\n=====================EMPLOYEE RECORD=======================");
 		printf("\n\nA)Add employee details\nB)delete employee details\nC)modify details\nD)Search\nE)sort\nF)print employee details\nG)save details\nH)exit\nenter a option :"); 
 		scanf(" %c",&c);
 		system("clear");  
-		if(c=='a'||c=='A')
-		{
-			do
-			{
+		if(c=='a'||c=='A'){
+			do{
 				r=database(&hptr);
 			}while(r==0);			
 
 		}
-		else if(c=='b'||c=='B')
-		{
-			do
-			{	
+		else if(c=='b'||c=='B'){
+			do{	
 				r=delete(&hptr,0);
 			}while(r==0);
 		}
-		else if(c=='c'||c=='C')
-		{
-			do
-			{
+		else if(c=='c'||c=='C'){
+			do{
 				r=modify(&hptr);
 			}while(r==0);
 		}
-		else if(c=='d'||c=='D')
-		{
-			do
-			{	
+		else if(c=='d'||c=='D'){
+			do{
 				r=delete(&hptr,2);
 			}while(r==0);	
 		}
-		else if(c=='e'||c=='E')
-		{
+		else if(c=='e'||c=='E'){
 
-			do
-			{
+			do{
 				count=countfun(hptr);	
 			}while(count==0);	
-			do
-			{	
+			do{	
 				r=sort(&hptr);
 			}while(r==0);	
 		}		
-		else if(c=='f'||c=='F')
-		{
-			do
-			{
+		else if(c=='f'||c=='F'){
+			do{
 				r=print(hptr);
 			}while(r==0);
 
 		}
-		else if(c=='g'||c=='G')
-		{
-			do
-			{
+		else if(c=='g'||c=='G'){
+			do{
 				r=filesave(hptr);
 			}while(r==0);
 		}
-		else if(c=='h'||c=='H')
-		{
+		else if(c=='h'||c=='H'){
 			if(hptr!=0)
 				do
 				{ 
@@ -123,7 +111,8 @@ int main()
 	}
 	fclose(fp);
 }
-int file(employee **ptr)
+
+int file(employee **ptr)         /*funtion is used to fetch previous contents from the file*/
 {    
 	if(ptr==NULL)
 	{
@@ -149,7 +138,8 @@ int file(employee **ptr)
 	//        fflush(stdout);
 	return 1;
 }
-int database(employee **ptr)
+
+int database(employee **ptr)      /*function is used to add new employee details to the node*/
 {       
 	if(ptr==NULL)
 	{
@@ -197,14 +187,17 @@ int database(employee **ptr)
 	}while(r==0);
 	return 1;
 }
-int delete(employee **ptr,const int search)
+
+int delete(employee **ptr,const int search)      /*delete perticular employee id */
 {
 	if(ptr==NULL)
 	{
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int test,check;
+
 	do
 	{
 		printf("\nusing\n1)name\n2)ID\noption : ");
@@ -231,6 +224,7 @@ int delete(employee **ptr,const int search)
 	}
 	return 1;
 }
+
 int modify(employee **ptr)
 {
 	if(ptr==NULL)
@@ -260,6 +254,7 @@ int modify(employee **ptr)
 	}
 	return 1;
 }
+
 int linklist(employee *temp,employee **ptr)
 {
 	if(temp==NULL&&ptr==NULL)
@@ -267,7 +262,9 @@ int linklist(employee *temp,employee **ptr)
 		printf("\nsystem error occured...");
 		return 0;
 	}
+
 	employee *last;
+
 	temp->next=0; 
 	if(*ptr==0)
 	{
@@ -287,6 +284,7 @@ int linklist(employee *temp,employee **ptr)
 	}
 	return 1;
 }
+
 int name(employee **ptr,const int search)
 { 
 	if(ptr==NULL)
@@ -294,9 +292,11 @@ int name(employee **ptr,const int search)
 		printf("\nsystem error occured..");
 		return 0;
 	}
+
 	int check=0;
 	char sname[50];
 	employee *test=*ptr,*last,*node;
+
 	system("clear");
 	printf("\nenter the name: ");
 	scanf(" %[^\n]s",sname);
@@ -357,6 +357,7 @@ int name(employee **ptr,const int search)
 		printf("\nname not found......");
 	return 1;
 }
+
 int ID(employee **ptr,const int search)
 {
 	if(ptr==NULL)
@@ -408,6 +409,7 @@ int ID(employee **ptr,const int search)
 		printf("\nstudent ID not found......");
 	return 1;
 }
+
 int moname(employee **ptr)
 {
 	if(ptr==NULL)
@@ -452,6 +454,7 @@ int moname(employee **ptr)
 		printf("\nname not found......");
 	return 1;
 }
+
 int moID(employee **ptr)
 {
 	if(ptr==NULL)
@@ -459,8 +462,10 @@ int moID(employee **ptr)
 		printf("\nsystem error occured..");
 		return 0;
 	}
+
 	int check=0,s_id;
 	employee *test=*ptr;
+
 	do
 	{
 		printf("\nenter the student id: ");
@@ -471,7 +476,9 @@ int moID(employee **ptr)
 			scanf("%*s");
 		}
 	}while(check==0);
+
 	check=0;
+
 	while(test!=0)
 	{
 		if(test->employeeID==s_id)
@@ -486,6 +493,7 @@ int moID(employee **ptr)
 		printf("\nstudent ID not found......");
 	return 1;
 }
+
 int datachange(employee **ptr)
 {
 	if(ptr==NULL)
@@ -494,8 +502,10 @@ int datachange(employee **ptr)
 		return 0;
 	}
 	system("clear");
+
 	int check;
 	employee *test=*ptr;
+
 	printf("\n1)ID:%d\n2)NAME:%s\n3)AGE:%d\n4)sex:%s\n5)branch:%s\n6)desig:%s\n7)address:%s\nenter a option : ",test->employeeID,test->name,test->age,test->sex,test->branch,test->desig,test->address);
 	scanf("%d",&check);
 	switch(check)
@@ -526,11 +536,13 @@ int datachange(employee **ptr)
 	}
 	return 1;
 }
+
 int print(employee *ptr)
 {
 	int filelength;
 	fseek(fp,2,-2);
 	filelength=ftell(fp);
+
 	if(filelength!=0)
 	{
 		system("clear");
@@ -556,6 +568,7 @@ int print(employee *ptr)
 	fflush(stdout);
 	return 1;
 }
+
 int filesave(employee *ptr)
 {
 	if(ptr==NULL)
@@ -563,7 +576,9 @@ int filesave(employee *ptr)
 		printf("\nsystem error occured ");
 		return 0;
 	}
+
 	char c;
+
 	while(1)
 	{
 		printf("\ndo you want to save the data for future reference..y/n : ");
@@ -586,9 +601,11 @@ int filesave(employee *ptr)
 	}
 	return 1;
 }
+
 int countfun(employee *ptr)
 {
 	count=0;
+
 	if(ptr==NULL)
 	{
 		printf("\nsystem error occured");
@@ -601,6 +618,7 @@ int countfun(employee *ptr)
 	}
 	return count;
 }
+
 int sort(employee **ptr)
 {
 	if(ptr==NULL)
@@ -608,7 +626,9 @@ int sort(employee **ptr)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int test,check;
+
 	do
 	{
 		printf("\nusing\n1)name\n2)ID\noption : ");
@@ -635,6 +655,7 @@ int sort(employee **ptr)
 	}
 	return 1;
 }
+
 int sortID(employee **ptr)
 {
 	if(ptr==NULL)
@@ -642,8 +663,10 @@ int sortID(employee **ptr)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int i,j,check;
 	employee *test,*temp;
+
 	for(i=0;i<count;i++)
 	{
 		test=*ptr;
@@ -661,6 +684,7 @@ int sortID(employee **ptr)
 		}
 	}
 }
+
 int sortname(employee **ptr)
 {
 	if(ptr==NULL)
@@ -668,8 +692,10 @@ int sortname(employee **ptr)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	int i,j,check,compare;
 	employee *test,*temp;
+
 	for(i=0;i<count;i++)
 	{
 		test=*ptr;
@@ -709,8 +735,10 @@ int nodeexchange(employee **ptr,employee *test)
 		printf("\nsystem error occured");
 		return 0;
 	}
+
 	employee *temp;
 	temp=test->prev;
+
 	if(test->prev!=0)
 		test->prev->next=test->next;
 	test->next->prev=temp;

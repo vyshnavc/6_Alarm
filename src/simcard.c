@@ -5,19 +5,27 @@
 
 #include"../inc/simcard.h"
 
+#define size 100
+#define NUM_MIN 1000000000
+#define NUM_MAX 10000000000
+
 struct sim
 {
-	char name[20];
+	char name[size];
 	int age;
 	int id;
 	long int simid[6];
-        char state[100];
-	char address[100];
+        char state[size];		
+	char address[size];
 };
-char state[20]="kerala";
+
+
+char state[size]="kerala";
 int adhar(struct sim *); 
+
 int simcard(struct sim *,int);
 int localguy(struct sim *,int);
+
 struct sim database[3]={{"vyshnav",23,555,{0,0,0,0,0,0},"kerala","aaa bbb ccc"},{"arjun",22,666,{0,0,0,0,0,0},"tamilnadu","bbb sss ccc"},{"arun",24,777,{0,0,0,0,0,0},"ahmedabad","bbb nnn ccc"}};
 
 void main()
@@ -31,9 +39,11 @@ void main()
 		adhar(database);
 	}
 }
+
 int adhar(struct sim *data)
 {
 	int check,num,i;
+
 	do
 	{
 		printf("\nenter adhar card number : ");
@@ -63,11 +73,13 @@ int adhar(struct sim *data)
 	}
 	return 1;
 }
+
 int simcard(struct sim *data,int i)
 {
 	int check,j;
 	long int num;
         char option;
+
         system("clear");
 	printf("\n--------");
 	printf("\n|      |  Name : %s",data[i].name);
@@ -86,7 +98,7 @@ int simcard(struct sim *data,int i)
 			printf("\nyou want to continue y/n?");
 			scanf(" %c",&option);
 			if(option=='y'||option=='Y')
-			{ 
+			{ 	
 			     do{check=localguy(data,i);}while(check==0);
 				break;
 			}
@@ -109,7 +121,7 @@ int simcard(struct sim *data,int i)
 			check=0;
 			continue;
 		}
-		if(num<1000000000||num>10000000000)
+		if(num<NUM_MIN||num>NUM_MAX)
 		{
 			printf("\nplease enter a valied number");
 			check=0;
@@ -133,10 +145,13 @@ int simcard(struct sim *data,int i)
         sleep(2);
 	return 1;
 }  
+
 int localguy(struct sim *data,int i)
 {
+
 int check,j;
 long int num;
+
         do
         {
                 printf("\nenter reference sim number : ");
@@ -148,12 +163,13 @@ long int num;
                         check=0;
                         continue;
                 }
-                if(num<1000000000||num>10000000000)
+                if(num<NUM_MIN||num>NUM_MAX)
                 {
                         printf("\nplease enter a valied number");
                         check=0;
                 }
         }while(check==0);
+
         for(j=3;j<6;j++)
         {
                 if(data[i].simid[j]==0)
@@ -164,6 +180,7 @@ long int num;
                         break;
                 }
         }
+
         if(check!=0)
         {
                 printf("\nyou have exceeded sim limit...\n");

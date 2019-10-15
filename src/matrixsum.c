@@ -2,11 +2,13 @@
   Print the resultant array using user defined printf() function which catches 2D array using double pointer. */
 
 #include"../inc/matrixsum.h"
+
 int **my_calloc(int ,int );
 int sum(int **,int **,int **,int ,int );
 int display(int **,int ,int );
 int pointer_to_array(int **,int ,int );
 int array_of_pointer(int **,int ,int );
+
 int main()
 {
 	int **p1=0,**p2=0,**p3=0,check,r=0,c=0,r1=0,c1=0;
@@ -57,8 +59,10 @@ int main()
                                p1=my_calloc(r,c);
                                p2=my_calloc(r,c);
                                p3=my_calloc(r,c);
+
 				pointer_to_array(p1,r,c);
 				array_of_pointer(p2,r,c);
+
 				do
 				{
 					check=sum(p1,p2,p3,r,c);
@@ -87,6 +91,7 @@ int main()
 
 				printf("=============================================\n\n");
 				printf("\n\n");
+
 				for(int i=0;i<r;i++)
 				{
 					printf("\t|");
@@ -107,7 +112,7 @@ int main()
 }
 
 
-int **my_calloc(int r,int c)
+int **my_calloc(int r,int c)  /*funtion is used to allocate memory dynamically using calloc so by default zero will assigned*/
 {
 	int **p;
 	p=calloc(r,sizeof(int*));
@@ -158,13 +163,15 @@ int array_of_pointer(int *p[],int r,int c)
 			}while(check==0);
 		}
 }
-int sum(int **p1,int **p2,int **p3,int r,int c)
+
+int sum(int **p1,int **p2,int **p3,int r,int c) /*add two matrix*/
 {
 	int i,j;
 	for(i=0;i<r;i++)
 		for(j=0;j<c;j++)
 			p3[i][j]=p1[i][j]+p2[i][j];
 }
+
 int display(int **p,int r,int c)
 {
 	for(int count=0;count<r;count++)
