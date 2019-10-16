@@ -2,6 +2,7 @@
 Also make a custom menu. This menu must display the names of all the players currently present in the database. The menu must also give the player the ability to view, modify and delete the information of the players.*/
 
 #include"../inc/cricket.h"
+
 typedef struct cricket
 {
 		char name[100];
@@ -13,6 +14,7 @@ typedef struct cricket
 		int four;
         struct cricket *next;
 }cricket_t;
+
 FILE *fp;
 #define Fsize 20
 int file(cricket_t **,const char *);
@@ -28,98 +30,78 @@ int datachange(cricket_t **);
 int moname(cricket_t **);
 int moID(cricket_t **);
 int r,count=0;
+
 void main()
 {
 	cricket_t *hptr1=0,*hptr2=0,**team;
 	char c,filename[Fsize];
 	int option;
-	do
-	{
+  
+	do{
 		r=file(&hptr1,"india");
 	}while(r==0);
-	do
-	{
+	do{
 		r=file(&hptr2,"australia");
 	}while(r==0);
 	printf("\n=====================CRICKET MATCH PERFORMANCE DETAILS=======================");
-	while(1)
-	{
-		while(1)
-		{
+	while(1){
+		while(1){
 			printf("\n1)INDIA\n2)AUSTRAILIA\nenter option : ");
 			r=scanf("%d",&option);
-			if(r==0)
-			{
+			if(r==0){
 				printf("\nwrong input..");
 				scanf("%*s");
 				continue;
 			}
-			if(option==1)
-			{
+			if(option==1){
 				team=&hptr1;
 				strcpy(filename,"india"); 
 				break;
 			}
-			else if(option==2)
-			{
+			else if(option==2){
 				team=&hptr2;
 				strcpy(filename,"australia");
 				break;
-			}
-			else
+			}else
 				printf("\nwrong input..");
 		}
-		while(1)
-		{       
+		while(1){       
 
 			printf("\nA)Add match performance details\nB)delete performance details\nc)modify performance details\nD)print match details\nS)save details\nE)change team\nX)exit\nenter a option : ");
 			scanf(" %c",&c);
 			system("clear");
-			if(c=='a'||c=='A')
-			{
-				do
-				{
+			if(c=='a'||c=='A'){
+				do{
 					r=database(team);
 				}while(r==0);	
 			}
-			else if(c=='b'||c=='B')
-			{
-				do
-				{	
+			else if(c=='b'||c=='B'){
+				do{	
 					r=delete(team);
 				}while(r==0);
 			}
-			else if(c=='c'||c=='C')
-			{
-				do
-				{
+			else if(c=='c'||c=='C'){
+				do{
 					r=modify(team);
 				}while(r==0);
 			}
-			else if(c=='d'||c=='D')
-			{      
-				do
-				{	
+			else if(c=='d'||c=='D'){      
+				do{	
 					r=print(*team);
 				}while(r==0);	
 			}
-			else if(c=='E'||c=='e')
-			{
+			else if(c=='E'||c=='e'){
 	                       fclose(fp);
 				break;
 			}
-			else if(c=='s'||c=='S')
-			{
-				do
-				{
+			else if(c=='s'||c=='S'){
+				do{
 					r=filesave(*team,filename);
 				}while(r==0);
 			}
-			else if(c=='x'||c=='X')
-			{
+			else if(c=='x'||c=='X'){
 				break;
-			}
-			else
+			}else
 			{
 				printf("\nwrong choice...try again");
 				continue;
@@ -135,109 +117,101 @@ void main()
 int file(cricket_t **ptr,const char *filename)       /*adding file data's into program*/
 {   
 	int i,j,fsize;
-	if(ptr==NULL&&filename==NULL)
-	{
+
+	if(ptr==NULL&&filename==NULL){
 		printf("\nsystem error occured....");
 		return 0;
 	}   
+
 	fp=fopen(filename,"a+");
 	fseek(fp,-2,2);
 	fsize=ftell(fp);
 	rewind(fp);
-        if(fsize!=0)
-	{
+
+	if(fsize!=0){
 		cricket_t *temp=(cricket_t*)malloc(sizeof(cricket_t));
-			while(fscanf(fp,"%s%d%d%d%d%d%d",temp->name,&temp->jersey,&temp->run,&temp->catch,&temp->wickets,&temp->six,&temp->four)!=EOF)
-			{
-			do
-			{
+		while(fscanf(fp,"%s%d%d%d%d%d%d",temp->name,&temp->jersey,&temp->run,&temp->catch,
+					&temp->wickets,&temp->six,&temp->four)!=EOF){
+			do{
 				r=linklist(temp,ptr);
 			}while(r==0);      
+
 			temp=(cricket_t*)malloc(sizeof(cricket_t));
-                        }
+		}
 	}
 	return 1;
 }
+
 int database(cricket_t **ptr)                     /*fucton is used to add player details*/
 {       
-	if(ptr==NULL)
-	{
+	if(ptr==NULL){
 		printf("\nsystem error occured..");
 		return 0;
 	}
+
 	int r;
 	cricket_t *temp;	
-		temp=(cricket_t*)malloc(sizeof(cricket_t));  
-		printf("\nenter player name : ");
-		scanf(" %[^\n]s",temp->name); 
-		do
-		{
-			printf("\nenter runs taken : ");
-			r=scanf("%d",&temp->run);
-			if(r!=1)
-			{
-				printf("\nwrong input try again..");
-				scanf("%*s");
-			}
-		}while(r!=1);
-		do
-		{
-			printf("\nenter jersey number : ");
-			r=scanf("%d",&temp->jersey);
-			if(r!=1)
-			{
-				printf("\nwrong input try again..");
-				scanf("%*s");
-			}
-		}while(r!=1);
-		do
-		{
-			printf("\nenter number of catch : ");
-			r=scanf("%d",&temp->catch);
-			if(r!=1)
-			{
-				printf("\nwrong input try again..");
-				scanf("%*s");
-			}
-		}while(r!=1);
-		do
-		{
-			printf("\nenter total wickets : ");
-			r=scanf("%d",&temp->wickets);
-			if(r!=1)
-			{
-				printf("\nwrong input try again..");
-				scanf("%*s");
-			}
-		}while(r!=1);
-		do
-		{
-			printf("\nenter total sixes : ");
-			r=scanf("%d",&temp->six);
-			if(r!=1)
-			{
-				printf("\nwrong input try again..");
-				scanf("%*s");
-			}
-		}while(r!=1);
-		do
-		{
-			printf("\nenter total four : ");
-			r=scanf("%d",&temp->four);
-			if(r!=1)
-			{
-				printf("\nwrong input try again..");
-				scanf("%*s");
-			}
-		}while(r!=1);
-		do
-		{
-			r=linklist(temp,ptr);
-		}while(r==0);
-	
+
+	temp=(cricket_t*)malloc(sizeof(cricket_t));  
+	printf("\nenter player name : ");
+	scanf(" %[^\n]s",temp->name); 
+
+	do{
+		printf("\nenter runs taken : ");
+		r=scanf("%d",&temp->run);
+		if(r!=1){
+			printf("\nwrong input try again..");
+			scanf("%*s");
+		}
+	}while(r!=1);
+	do{
+		printf("\nenter jersey number : ");
+		r=scanf("%d",&temp->jersey);
+		if(r!=1){
+			printf("\nwrong input try again..");
+			scanf("%*s");
+		}
+	}while(r!=1);
+	do{
+		printf("\nenter number of catch : ");
+		r=scanf("%d",&temp->catch);
+		if(r!=1){
+			printf("\nwrong input try again..");
+			scanf("%*s");
+		}
+	}while(r!=1);
+	do{
+		printf("\nenter total wickets : ");
+		r=scanf("%d",&temp->wickets);
+		if(r!=1){
+			printf("\nwrong input try again..");
+			scanf("%*s");
+		}
+	}while(r!=1);
+	do{
+		printf("\nenter total sixes : ");
+		r=scanf("%d",&temp->six);
+		if(r!=1){
+			printf("\nwrong input try again..");
+			scanf("%*s");
+		}
+	}while(r!=1);
+	do{
+		printf("\nenter total four : ");
+		r=scanf("%d",&temp->four);
+		if(r!=1){
+			printf("\nwrong input try again..");
+			scanf("%*s");
+		}
+	}while(r!=1);
+	do{
+		r=linklist(temp,ptr);
+	}while(r==0);
+
 	return 1;
 
 }
+
 int delete(cricket_t **ptr)
 {
 	if(ptr==NULL)
