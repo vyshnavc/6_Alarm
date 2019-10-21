@@ -1,5 +1,5 @@
 /*implement a full duplex client server application using socket*/
-#include"servclt.h"
+#include"../inc/servclt.h"
 
 int sfd,m,len,retval=2;
 
