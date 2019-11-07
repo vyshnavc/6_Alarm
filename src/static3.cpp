@@ -1,4 +1,4 @@
-#include "../inc/cpplib.h"
+#include "../inc/cpplib"
 using namespace std;
 
 struct X {

@@ -1,5 +1,5 @@
 /*friend class*/
-#include"cpplib.h"
+#include"../inc/cpplib"
 using namespace std;
 
 class A

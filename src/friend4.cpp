@@ -1,6 +1,6 @@
 /*write a cpp program to find out total salary of husband and wife using friend*/
 
-#include"cpplib.h"
+#include"../inc/cpplib"
 using namespace std;
 
 class wife;

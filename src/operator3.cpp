@@ -1,7 +1,7 @@
 /*write a program to complete below expression by using friend function 
   obj5=obj1+obj2*obj3-obj4 */
 
-#include"../inc/cpplib.h"
+#include"../inc/cpplib"
 using namespace std;
 
 class A

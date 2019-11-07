@@ -1,6 +1,6 @@
 /*perticular member function of a class to another class*/
 
-#include"cpplib.h"
+#include"../inc/cpplib"
 using namespace std;
 
 class A;

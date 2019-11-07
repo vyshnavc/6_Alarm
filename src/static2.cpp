@@ -1,6 +1,6 @@
 /*C++ program to Count the number of objects using the Static member function */
 
-#include "../inc/cpplib.h" 
+#include "../inc/cpplib" 
 using namespace std; 
 
 class test { 

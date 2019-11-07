@@ -1,5 +1,5 @@
 // friend functions
-#include "cpplib.h"
+#include "../inc/cpplib"
 using namespace std;
 
 class CRectangle {

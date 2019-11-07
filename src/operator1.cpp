@@ -1,6 +1,6 @@
 /*multiple addition using operator overloading*/
 
-#include"../inc/cpplib.h"
+#include"../inc/cpplib"
 using namespace std;
 
 class A
